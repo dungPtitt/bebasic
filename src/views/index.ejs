@@ -30,12 +30,39 @@
       </td>
       <td>
         <a href="/detail/user/<%= dataUser[i].id%>" target="_blank">Detail</a>
-        <a href="/edit/user/<%= dataUser[i].id%>" target="_blank">Edit</a>
-        <a href="/delete/user/<%= dataUser[i].id%>" target="_blank">Delete</a>
+        <div>
+          <form action="/delete-user" method="POST">
+            <input type="text" value="<%= dataUser[i].id%>" name="id" hidden>
+            <button type="submit">delete</button>
+          </form>
+        </div>
+        <a href="/edit-user/<%= dataUser[i].id%>" target="_blank">Edit</a>
       </td>
     </tr>
  <% } %>
   
 </table>
+<div class="create-user-container">
+
+  <form action="/create-user" method="POST">
+    <div>Create new user</div>
+    <div>
+      <label for="">name</label>
+      <input type="text" name="name">
+    </div>
+    <div>
+      <label for="">email</label>
+      <input type="email" name="email">
+    </div>
+    <div>
+      <label for="">address</label>
+      <input type="text" name="address">
+    </div>
+    <div>
+      
+      <button type="submit">submit</button>
+    </div>
+  </form>
+</div>
 </body>
 </html>

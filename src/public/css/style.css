@@ -20,3 +20,19 @@
   background-color: #04AA6D;
   color: white;
 }
+.create-user-container {
+  text-align: center;
+}
+.create-user-container label, .update-user-container label {
+  display: block;
+}
+.create-user-container input {
+  margin: 6px 0;
+}
+
+.update-user-container {
+  text-align: center;
+}
+.update-user-container input {
+  margin: 6px 0;
+}
