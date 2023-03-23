@@ -1,8 +1,8 @@
 {
-  "name": "babasic",
+  "name": "dabasic",
   "version": "1.0.0",
   "description": "backend nodejs ttcs",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --exec babel-node src/server.js"
