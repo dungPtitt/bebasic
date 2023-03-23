@@ -9,7 +9,7 @@ let getHomePage = async (req, res)=> {
   // })
 
   // const [rows, fields] = await pool.execute('SELECT * FROM `users`',);
-  res.render("index.ejs")
+  res.render("home.ejs");
 }
 
 let getAboutPage = (req, res)=> {
