@@ -23,5 +23,21 @@ module.exports = {
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
+  },
+  "compilerOptions": {
+    "target": "ES2021",                                 
+    "lib": [
+      "esnext"
+    ],                                       
+    "module": "commonjs",                               
+    "rootDir": "src",                                 
+    "baseUrl": "./",                                
+    "resolveJsonModule": true,                       
+    "sourceMap": true,                            
+    "outDir": "./dist",                                  
+    "esModuleInterop": true,                           
+    "forceConsistentCasingInFileNames": true,            
+    "strict": true,                                    
+    "skipLibCheck": true                             
   }
 }
