@@ -2,14 +2,14 @@ import pool from "../configs/connectDB";
 
   
 let getHomePage = async (req, res)=> {
-  let conn = await pool;
+  // let conn = await pool;
   // await conn.request().query('SELECT * FROM `users`', (err, data)=>{
   //   console.log("check>>", data);
   //   // res.render("index.ejs", {dataUser: data})
   // })
 
-  const [rows, fields] = await pool.execute('SELECT * FROM `users`',);
-  res.render("index.ejs", {dataUser: rows});
+  // const [rows, fields] = await pool.execute('SELECT * FROM `users`',);
+  res.render("home.ejs");
 }
 
 let getAboutPage = (req, res)=> {
