@@ -1,5 +1,20 @@
 import db from "../models/index";
 
+let handleTestApi = async()=>{
+  return new Promise(async(resolve, reject)=>{
+    try{
+      let data = await db.Test.findOne({
+        attributes: ['name', 'email'],
+        where: { id: 1 },
+        raw: true
+      })
+      resolve(data);
+    }catch(e){
+      reject(e);
+    }
+  });
+}
+
 let handleGetAcc = async()=>{
   return new Promise(async(resolve, reject)=>{
     try{
@@ -45,5 +60,6 @@ let handleCreateSlide = async(data)=>{
 
 module.exports = {
   handleGetAcc,
-  handleCreateSlide
+  handleCreateSlide,
+  handleTestApi
 }

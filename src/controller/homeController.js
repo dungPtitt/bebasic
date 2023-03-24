@@ -1,5 +1,3 @@
-import { render } from "ejs";
-import db from "../models/index";
 import accountService from "../services/accountService";
 let getHomePage = async (req, res)=> {
   // let conn = await pool;
@@ -11,7 +9,22 @@ let getHomePage = async (req, res)=> {
   // const [rows, fields] = await pool.execute('SELECT * FROM `users`',);
   res.render("home.ejs");
 }
-
+let testApi = async(req, res)=>{
+  try{
+    let data = await accountService.handleTestApi();
+    res.status(200).json({
+      errCode: 0,
+      errMessage: "Get data successfully!",
+      data: data
+    })
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Err from server!"
+    })
+  }
+}
 let getAllAcc = async (req, res)=>{
   try{
     let response = await accountService.handleGetAcc();
@@ -124,6 +137,7 @@ module.exports = {
   updateUser,
   getAllAcc,
   createSlide,
-  loginPage
+  loginPage,
+  testApi
 }
 

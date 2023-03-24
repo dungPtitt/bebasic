@@ -7,6 +7,7 @@ const initWebRoute = (app)=> {
   router.post("/login", homeController.loginPage);
   router.get("/get-all-acc", homeController.getAllAcc);
   router.post("/create-slide", homeController.createSlide);
+  router.get("/test", homeController.testApi);
   // router.get("/about", homeController.getAboutPage)
   // router.get("/detail/user/:userId", homeController.getDetailUser)
   // router.post("/create-user", homeController.createUser)
