@@ -2,6 +2,7 @@ import configViewEngine from "./configs/viewEngines";
 import express from "express";
 import initWebRoute from './router/web';
 import initAPIRoute from './router/api';
+import checkConnectDB from "./configs/connectDB";
 require('dotenv').config()
 const app = express()
 
@@ -14,7 +15,9 @@ configViewEngine(app)
 //init web route
 initWebRoute(app)
 //init api route
-initAPIRoute(app)
+// initAPIRoute(app)
+
+checkConnectDB();
 
 
 const port = process.env.PORT || 8080
