@@ -1,6 +1,6 @@
-import pool from "../configs/connectDB";
-
-  
+import { render } from "ejs";
+import db from "../models/index";
+import accountService from "../services/accountService";
 let getHomePage = async (req, res)=> {
   // let conn = await pool;
   // await conn.request().query('SELECT * FROM `users`', (err, data)=>{
@@ -12,8 +12,34 @@ let getHomePage = async (req, res)=> {
   res.render("home.ejs");
 }
 
+let getAllAcc = async (req, res)=>{
+  try{
+    let response = await accountService.handleGetAcc();
+    res.status(200).json(response);
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      errorCode: -1,
+      errorMessage: "Error from server!"
+    })
+  }
+}
+let createSlide = async (req, res)=>{
+  try{
+    let data = req.body;
+    let response = await accountService.handleCreateSlide(data);
+    res.status(200).json(response);
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      errorCode: -1,
+      errorMessage: "Error from server!"
+    })
+  }
+}
+
 let getAboutPage = (req, res)=> {
-  res.send("Hello from about page")
+  res.render("login.ejs");
   // res.render("about.ejs")
 }
 let getDetailUser = async(req, res)=> {
@@ -54,6 +80,39 @@ let updateUser = async (req, res)=> {
   // await pool.execute("update users(name, email, address) where id=?", [name, email, address, id])
   res.send("hello from update")
 }
+let loginPage = async (req, res)=>{
+  try{
+    res.render("login.ejs");
+  //   let data = req.body;
+  //   // let response = await homeService.handleUserLogin(data.email, data.password);
+  //   console.log("data: ", response);
+  //   if(response.errCode==0){
+  //     switch (response.idAuth) {
+  //       case 1:
+  //         res.redirect("/admin");
+  //         break;
+  //       case 2:
+  //         res.render("manager/home.ejs");
+  //         break;
+  //       case 3:
+  //         res.render("member/home.ejs");
+  //         break;
+  //       default:
+  //         res.render("login.ejs");
+          
+  //         break;
+  //     }
+  //   }else{
+  //     res.render("login.ejs", {data: JSON.stringify(response.errMessage)});
+  //   }
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Err from server!"
+    })
+  }
+}
 
 module.exports = {
   getHomePage,
@@ -62,5 +121,9 @@ module.exports = {
   createUser,
   deleteUser,
   editUser,
-  updateUser
+  updateUser,
+  getAllAcc,
+  createSlide,
+  loginPage
 }
+

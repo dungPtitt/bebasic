@@ -8,14 +8,13 @@ const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 // const config = require(__dirname + '/../configs/config.js')[env];
 const db = {};
-
-
+require("dotenv").config();
 
 let sequelize;
 const configCustomize = {
-  host: process.env.HOST,
-  port: process.env.PORT,
-  dialect: process.env.PORT,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  dialect: process.env.DB_DIALECT,
   logging: false,
   query: {
     raw: true
