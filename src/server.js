@@ -11,11 +11,11 @@ app.use(express.urlencoded({extended: true}));
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 //set ejs engine
-configViewEngine(app)
+configViewEngine(app);
 //init web route
-initWebRoute(app)
+initWebRoute(app);
 //init api route
-// initAPIRoute(app)
+initAPIRoute(app);
 
 checkConnectDB();
 

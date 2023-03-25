@@ -1,14 +1,6 @@
-import accountService from "../services/accountService";
-let getHomePage = async (req, res)=> {
-  // let conn = await pool;
-  // await conn.request().query('SELECT * FROM `users`', (err, data)=>{
-  //   console.log("check>>", data);
-  //   // res.render("index.ejs", {dataUser: data})
-  // })
 
-  // const [rows, fields] = await pool.execute('SELECT * FROM `users`',);
-  res.render("home.ejs");
-}
+import accountService from "../services/accountService";
+
 let testApi = async(req, res)=>{
   try{
     let data = await accountService.handleTestApi();
@@ -93,31 +85,37 @@ let updateUser = async (req, res)=> {
   // await pool.execute("update users(name, email, address) where id=?", [name, email, address, id])
   res.send("hello from update")
 }
-let loginPage = async (req, res)=>{
+
+let getHomePage = (req, res)=> {
+  res.render("login.ejs", {data: null});
+}
+
+let getManagerPage = (req, res)=>{
+  res.render("manager/home.ejs");
+}
+
+let getMemberPage = (req, res)=> {
+  res.render("member/home.ejs");
+}
+
+let handleLogin = async (req, res)=>{
   try{
-    res.render("login.ejs");
-  //   let data = req.body;
-  //   // let response = await homeService.handleUserLogin(data.email, data.password);
-  //   console.log("data: ", response);
-  //   if(response.errCode==0){
-  //     switch (response.idAuth) {
-  //       case 1:
-  //         res.redirect("/admin");
-  //         break;
-  //       case 2:
-  //         res.render("manager/home.ejs");
-  //         break;
-  //       case 3:
-  //         res.render("member/home.ejs");
-  //         break;
-  //       default:
-  //         res.render("login.ejs");
-          
-  //         break;
-  //     }
-  //   }else{
-  //     res.render("login.ejs", {data: JSON.stringify(response.errMessage)});
-  //   }
+    let data = req.body;
+    let response = await accountService.handleUserLogin(data.email, data.password);
+    if(response.errCode==0){
+      switch (response.dataAcc.idAuth) {
+        case 1:
+          res.redirect("/admin-page");
+        case 2:
+          res.redirect("/manager-page");
+        case 3:
+          res.redirect("/member-page");
+        default:
+          res.render("login.ejs");
+      }
+    }else{
+      res.render("login.ejs", {data: JSON.stringify(response.errMessage)});
+    }
   }catch(e){
     console.log(e);
     res.status(500).json({
@@ -127,9 +125,28 @@ let loginPage = async (req, res)=>{
   }
 }
 
+let getAdminPage = async (req, res)=>{
+  try{
+    let response = await accountService.handleGetAcc("All");
+    if(response.errCode===0){
+      res.render("account.ejs", {data: response.data});
+    }
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+}
+
 module.exports = {
   getHomePage,
+  handleLogin,
   getAboutPage,
+  getAdminPage,
+  getManagerPage,
+  getMemberPage,
   getDetailUser,
   createUser,
   deleteUser,
@@ -137,7 +154,6 @@ module.exports = {
   updateUser,
   getAllAcc,
   createSlide,
-  loginPage,
   testApi
 }
 

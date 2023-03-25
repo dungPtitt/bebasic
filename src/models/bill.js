@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Bill.belongsTo(models.Account, {foreignKey: "idAcc", as: "DataAcc"});
+      Bill.belongsTo(models.Account, {foreignKey: "idAcc", as: "DataAccAndBill"});
       Bill.hasOne(models.DetailBill, {foreignKey: "idBill", as: "DataBill"});
     }
   };
@@ -29,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Bill',
+    tableName: 'bills'
   });
   return Bill;
 };

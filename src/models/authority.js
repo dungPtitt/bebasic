@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Authority.hasMany(models.Account, {foreignKey: "idAuth", as: "AuthData"});
+      Authority.hasMany(models.Account, {foreignKey: "idAuth", as: "DataAuth"});
     }
   };
   Authority.init({
@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Authority',
+    tableName: 'authorities'
   });
   return Authority;
 };
