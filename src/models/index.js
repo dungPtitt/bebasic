@@ -19,6 +19,9 @@ const configCustomize = {
   query: {
     raw: true
   },
+  define: {
+    timestamps: false
+  },
   timezone: "+07:00"
 }
 sequelize = new Sequelize(
@@ -46,6 +49,7 @@ fs
   })
   .forEach(file => {
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
+    // console.log(model.name);
     db[model.name] = model;
   });
 
