@@ -221,9 +221,10 @@ let handleUpdateAcc = (data) => {
       //co the cho cap nhat mat khau lun hoac chia thanh th khac
       acc.password = data.passwordAcc? data.passwordAcc: acc.passwordAcc;
       acc.save();
+      // let accounts = await db.Account.findAll();
       resolve({
         errCode: 0,
-        message: "Update Account Successfully!"
+        message: "Update Account Successfully!",
       })
     } catch (e) {
       reject(e)
@@ -240,20 +241,22 @@ let handleDeleteAcc= async(idAcc)=>{
           errMessage: "Missing input parameter!"
         })
       }
-      let slide = await db.Account.findOne({
+      let account = await db.Account.findOne({
         where: {id: idAcc},
         raw: false
       })
-      if(!slide){
+      if(!account){
         resolve({
           errCode: 2,
           errMessage: "Account not found!"
         })
       }
-      await slide.destroy();
+      await account.destroy();
+      let accounts = await db.Account.findAll();
       resolve({
         errCode:0,
-        message: "Delete account successfully!"
+        message: "Delete account successfully!",
+        data: accounts
       })
     }catch(e){
       reject(e);

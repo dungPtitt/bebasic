@@ -19,7 +19,7 @@ let testApi = async(req, res)=>{
 }
 let getAllAcc = async (req, res)=>{
   try{
-    let response = await accountService.handleGetAcc();
+    let response = await accountService.handleGetAcc("All");
     res.status(200).json(response);
   }catch(e){
     console.log(e);

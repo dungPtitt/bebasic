@@ -63,6 +63,30 @@ let login = async (req, res) => {
   
 }
 
+let getEditAcc = async(req, res)=>{
+  try{
+    let response = "";
+    let idAcc = req.query.id;
+    if(idAcc!=-1){
+      response = await accountService.handleGetAcc(idAcc);
+      res.render("admin/EditAndAddAcc.ejs", {data: response.data, idAcc: idAcc});
+    }else{
+      let data = {
+        id: "",
+        idAuth:"",
+        nameAcc: "",
+        emailAcc:""
+      }
+      res.render("admin/EditAndAddAcc.ejs", {data: data, idAcc: idAcc});
+    }
+  }catch(e){
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+}
+
 let getAcc = async (req, res) => {
   try{
     let id = req.query.id;
@@ -128,11 +152,25 @@ let updateAcc = async (req, res) => {
   
 }
 
+let getUpdateAcc = async(req, res)=>{
+  try{
+    let data = req.body;
+    await accountService.handleUpdateAcc(data);
+    return res.redirect("/");
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+}
+
 let deleteAcc = async (req, res) => {
   try {
-    let useId = req.body.id;
-    let response = await accountService.handleDeleteAcc(useId);
-    return res.status(200).json(response);
+    let idAcc = req.query.id;
+    let response = await accountService.handleDeleteAcc(idAcc);
+    return res.render("account.ejs", {data: response.data});
   }catch(e) {
     console.log(e);
     res.status(500).json({
@@ -143,6 +181,8 @@ let deleteAcc = async (req, res) => {
 }
 module.exports = {
   getViewCRUDAcc,
+  getEditAcc,
+  getUpdateAcc,
   //
   authorityLogin,
   login,
