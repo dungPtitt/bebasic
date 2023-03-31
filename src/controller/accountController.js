@@ -136,6 +136,19 @@ let createAcc = async(req, res)=>{
     })
   }
 }
+let createAccWeb = async(req, res)=>{
+  try {
+    let data = req.body;
+    let response = await accountService.handleCreateAcc(data);
+    res.redirect("/");
+  } catch (e) {
+    console.log(e);
+    return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+}
 
 let updateAcc = async (req, res) => {
   try{
@@ -179,10 +192,26 @@ let deleteAcc = async (req, res) => {
     })
   }
 }
+
+let deleteAccWeb = async (req, res) => {
+  try {
+    let idAcc = req.query.id;
+    await accountService.handleDeleteAcc(idAcc);
+    res.redirect("/");
+  }catch(e) {
+    console.log(e);
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+}
 module.exports = {
   getViewCRUDAcc,
   getEditAcc,
   getUpdateAcc,
+  createAccWeb,
+  deleteAccWeb,
   //
   authorityLogin,
   login,

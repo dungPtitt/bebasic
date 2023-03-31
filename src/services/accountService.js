@@ -219,7 +219,7 @@ let handleUpdateAcc = (data) => {
       acc.nameAcc = data.nameAcc? data.nameAcc : acc.nameAcc;
       acc.emailAcc = data.emailAcc? data.emailAcc: acc.emailAcc;
       //co the cho cap nhat mat khau lun hoac chia thanh th khac
-      acc.password = data.passwordAcc? data.passwordAcc: acc.passwordAcc;
+      acc.password = data.passwordAcc==""? data.passwordAcc: acc.passwordAcc;
       acc.save();
       // let accounts = await db.Account.findAll();
       resolve({

@@ -10,9 +10,10 @@ const initWebRoute = (app)=> {
   router.get("/manager-page", homeController.getManagerPage);
   router.get("/member-page", homeController.getMemberPage);
 
-  router.get("/delete-acc", accountController.deleteAcc);
-  router.get("/edit-acc", accountController.getEditAcc);
+  router.post("/create-acc", accountController.createAccWeb);
+  router.get("/edit-add-acc", accountController.getEditAcc);
   router.post("/update-acc", accountController.getUpdateAcc);
+  router.get("/delete-acc", accountController.deleteAccWeb);
   router.get("/get-all-acc", homeController.getAllAcc);
   router.post("/create-slide", homeController.createSlide);
   router.get("/test", homeController.testApi);
