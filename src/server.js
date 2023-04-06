@@ -1,11 +1,17 @@
 import configViewEngine from "./configs/viewEngines";
 import express from "express";
+import cors from "cors";
 import initWebRoute from './router/web';
 import initAPIRoute from './router/api';
 import checkConnectDB from "./configs/connectDB";
+
 require('dotenv').config()
 const app = express()
 
+
+app.use(cors({
+  origin: true
+}));
 // Parse URL-encoded bodies (as sent by HTML forms)
 app.use(express.urlencoded({extended: true}));
 // Parse JSON bodies (as sent by API clients)

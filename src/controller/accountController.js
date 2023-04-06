@@ -183,7 +183,7 @@ let deleteAcc = async (req, res) => {
   try {
     let idAcc = req.query.id;
     let response = await accountService.handleDeleteAcc(idAcc);
-    return res.render("account.ejs", {data: response.data});
+    return res.status(200).json(response);
   }catch(e) {
     console.log(e);
     res.status(500).json({

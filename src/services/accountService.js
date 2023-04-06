@@ -252,11 +252,10 @@ let handleDeleteAcc= async(idAcc)=>{
         })
       }
       await account.destroy();
-      let accounts = await db.Account.findAll();
+      // let accounts = await db.Account.findAll();
       resolve({
         errCode:0,
-        message: "Delete account successfully!",
-        data: accounts
+        message: "Delete account successfully!"
       })
     }catch(e){
       reject(e);
