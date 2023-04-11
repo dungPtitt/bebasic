@@ -2,7 +2,7 @@ import db from "../models/index";
 import bcrypt from 'bcryptjs';
 let salt = bcrypt.genSaltSync(10);
 
-let handleUserLogin = (email, password) => {
+let handleUserLogin = async(email, password) => {
   return new Promise(async (resolve, reject) => {
     try {
       if(!email){
@@ -49,7 +49,7 @@ let handleUserLogin = (email, password) => {
       response.dataAcc = acc;
       resolve(response);
     } catch (e) {
-      reject(e)
+      reject(e);
     }
   })
 }

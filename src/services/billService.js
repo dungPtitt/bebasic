@@ -1,20 +1,20 @@
 import db from "../models/index";
 
-let handleGetProduct=(idProduct)=>{
+let handleGetBill=(idBill)=>{
   return new Promise(async(resolve, reject)=>{
     try{
-      let product;
-      if(!idProduct){
-        product = await db.Product.findAll();
+      let bill;
+      if(!idBill){
+        bill = await db.Bill.findAll();
       }else{
-        product = await db.Product.findOne({
-          where: {id: idProduct}
+        bill = await db.Bill.findOne({
+          where: {id: idBill}
         });
       }
       return resolve({
         errCode: 0,
-        message: "Get product successfully!",
-        data: product
+        message: "Get bill successfully!",
+        data: bill
       })
     }catch(e){
       reject(e);
@@ -22,7 +22,7 @@ let handleGetProduct=(idProduct)=>{
   });
 }
 
-let handleCreateProduct = async (data) => {
+let handleCreateBill = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       if(!data){
@@ -31,7 +31,7 @@ let handleCreateProduct = async (data) => {
           errMessage: "Missing input!"
         })
       }
-      await db.Product.create({
+      await db.Bill.create({
         idGroup: data.idGroup,
         nameP: data.nameP,
         priceP: data.priceP,
@@ -42,7 +42,7 @@ let handleCreateProduct = async (data) => {
       })
       resolve({
         errCode: 0,
-        message: "Create product successfully!"
+        message: "Create bill successfully!"
       });
     } catch (e) {
       reject(e)
@@ -50,7 +50,7 @@ let handleCreateProduct = async (data) => {
   })
 }
 
-let handleUpdateProduct = (data) => {
+let handleUpdateBill = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!data.id) {
@@ -59,28 +59,28 @@ let handleUpdateProduct = (data) => {
           errMessage: "Missing input parameter"
         })
       }
-      let product = await db.Product.findOne({
+      let bill = await db.Bill.findOne({
         where: { id: data.id },
         raw: false
       })
-      if (!product) {
+      if (!bill) {
         resolve({
           errCode: 2,
-          errMessage: "Product not found!"
+          errMessage: "Bill not found!"
         })
       }
-      product.idGroup = data.idGroup;
-      product.nameP = data.nameP;
-      product.priceP = data.priceP;
-      product.countP = data.countP;
-      product.imageP = data.imageP;
-      product.infoP = data.infoP;
-      product.parameterP = data.parameterP;
-      product.save();
-      // let products = await db.Product.findAll();
+      bill.idGroup = data.idGroup;
+      bill.nameP = data.nameP;
+      bill.priceP = data.priceP;
+      bill.countP = data.countP;
+      bill.imageP = data.imageP;
+      bill.infoP = data.infoP;
+      bill.parameterP = data.parameterP;
+      bill.save();
+      // let bills = await db.Bill.findAll();
       resolve({
         errCode: 0,
-        message: "Update Product Successfully!",
+        message: "Update Bill Successfully!",
       })
     } catch (e) {
       reject(e)
@@ -88,30 +88,30 @@ let handleUpdateProduct = (data) => {
   })
 }
 
-let handleDeleteProduct = async(idProduct)=>{
+let handleDeleteBill = async(idBill)=>{
   return new Promise(async(resolve, reject)=>{
     try{
-      if(!idProduct){
+      if(!idBill){
         resolve({
           errCode: 1,
           errMessage: "Missing input parameter!"
         })
       }
-      let product = await db.Product.findOne({
-        where: {id: idProduct},
+      let bill = await db.Bill.findOne({
+        where: {id: idBill},
         raw: false
       })
-      if(!product){
+      if(!bill){
         resolve({
           errCode: 2,
-          errMessage: "Product not found!"
+          errMessage: "Bill not found!"
         })
       }
-      await product.destroy();
-      // let products = await db.Product.findAll();
+      await bill.destroy();
+      // let bills = await db.Bill.findAll();
       resolve({
         errCode:0,
-        message: "Delete product successfully!"
+        message: "Delete bill successfully!"
       })
     }catch(e){
       reject(e);
@@ -120,8 +120,8 @@ let handleDeleteProduct = async(idProduct)=>{
 }
 
 module.exports = {
-  handleCreateProduct,
-  handleGetProduct,
-  handleUpdateProduct,
-  handleDeleteProduct
+  handleCreateBill,
+  handleGetBill,
+  handleUpdateBill,
+  handleDeleteBill
 }

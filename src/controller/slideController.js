@@ -1,11 +1,11 @@
-import productService from "../services/productService";
+import slideService from "../services/slideService";
 //web
-let createProductWeb = async(req, res)=>{
+let createSlideWeb = async(req, res)=>{
   try {
     let data = req.body;
     console.log(data);
-    let response = await productService.handleCreateProduct(data);
-    res.redirect("/product");
+    let response = await slideService.handleCreateSlide(data);
+    res.redirect("/slide");
   } catch (e) {
     console.log(e);
     return res.status(200).json({
@@ -15,13 +15,13 @@ let createProductWeb = async(req, res)=>{
   }
 }
 
-let getEditAddProduct = async(req, res)=>{
+let getEditAddSlide = async(req, res)=>{
   try{
     let response = "";
-    let idProduct = req.query.id;
-    if(idProduct!=-1){
-      response = await productService.handleGetProduct(idProduct);
-      return res.render("admin/EditAndAddProduct.ejs", {data: response.data, idProduct: idProduct});
+    let idSlide = req.query.id;
+    if(idSlide!=-1){
+      response = await slideService.handleGetSlide(idSlide);
+      return res.render("admin/EditAndAddSlide.ejs", {data: response.data, idSlide: idSlide});
     }else{// xu ly them moi
       let data = {
         id: "",
@@ -33,7 +33,7 @@ let getEditAddProduct = async(req, res)=>{
         parameterP: "",
         idGroup: ""
       }
-      return res.render("admin/EditAndAddProduct.ejs", {data: data, idProduct: idProduct});
+      return res.render("admin/EditAndAddSlide.ejs", {data: data, idSlide: idSlide});
     }
   }catch(e){
     res.status(500).json({
@@ -43,12 +43,12 @@ let getEditAddProduct = async(req, res)=>{
   }
 }
 
-//@----------------------------------------controllor product api----------------------------------
+//@----------------------------------------controllor slide api----------------------------------
 //api
-let getProduct = async (req, res) => {
+let getSlide = async (req, res) => {
   try{
     let id = req.query.id;
-    let response = await productService.handleGetProduct(id);
+    let response = await slideService.handleGetSlide(id);
     return res.status(200).json(response);
   }catch(e){
     console.log(e);
@@ -60,10 +60,10 @@ let getProduct = async (req, res) => {
   
 }
 
-let createProduct = async(req, res)=>{
+let createSlide = async(req, res)=>{
   try {
     let data = req.body;
-    let response = await productService.handleCreateProduct(data);
+    let response = await slideService.handleCreateSlide(data);
     return res.status(200).json(response);
   } catch (e) {
     console.log(e);
@@ -74,10 +74,10 @@ let createProduct = async(req, res)=>{
   }
 }
 
-let updateProduct = async (req, res) => {
+let updateSlide = async (req, res) => {
   try{
     let data = req.body;
-    let response = await productService.handleUpdateProduct(data);
+    let response = await slideService.handleUpdateSlide(data);
     return res.status(200).json(response);
   }catch(e){
     console.log(e);
@@ -89,10 +89,10 @@ let updateProduct = async (req, res) => {
   
 }
 
-let deleteProduct = async (req, res) => {
+let deleteSlide = async (req, res) => {
   try {
-    let idProduct = req.query.id;
-    let response = await productService.handleDeleteProduct(idProduct);
+    let idSlide = req.query.id;
+    let response = await slideService.handleDeleteSlide(idSlide);
     return res.status(200).json(response);
   }catch(e) {
     console.log(e);
@@ -104,11 +104,11 @@ let deleteProduct = async (req, res) => {
 }
 
 module.exports = {
-  createProductWeb,
-  getEditAddProduct,
+  createSlideWeb,
+  getEditAddSlide,
   ///-------------
-  getProduct,
-  createProduct,
-  updateProduct,
-  deleteProduct,
+  getSlide,
+  createSlide,
+  updateSlide,
+  deleteSlide,
 }

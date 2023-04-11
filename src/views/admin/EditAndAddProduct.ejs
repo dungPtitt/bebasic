@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>edit and add product</title>
+  <script>
+    function checker(e){
+      let nameP = document.getElementsByName("nameP")[0].value;
+      let priceP = document.getElementsByName("priceP")[0].value;
+      let countP = document.getElementsByName("countP")[0].value;
+      let infoP = document.getElementsByName("infoP")[0].value;
+      let imageP = document.getElementsByName("imageP")[0].value;
+      let parameterP = document.getElementsByName("parameterP")[0].value;
+      // let idGroup = document.getElementsByName("idGroup")[0].value;
+      if(nameP!="" && countP!="" && priceP!=""&& infoP!=""&& imageP!="" && parameterP!=""){
+        if(window.confirm("Are you sure create new acc")){
+        document.getElementById("edit-add-form").submit();
+        } else {
+          e.preventDefault();
+        }
+      }
+      
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <form action="<% if(idProduct != -1){ %>
+      update-product
+      <%} else { %>
+      create-product
+      <% } %>"
+      method="POST" id="edit-add-form">
+
+      <% if (idProduct != -1) { %>
+        <p> Edit Product</p>
+        <%} else { %>
+          <p> Add Product</p>
+        <% } %>
+      <!-- <h1>Edit Product</h1> -->
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Product Name</label>
+          <input type="text" class="form-control" name="nameP" placeholder="Name product"
+            value="<%= data.nameP %>" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-2">
+          <label for="inputPassword4">Price</label>
+          <input type="text" class="form-control" name="priceP" placeholder="Price"
+            value="<%= data.priceP %>" required>
+        </div>
+        <div class="form-group col-2">
+          <label for="inputPassword4">Quantity</label>
+          <input type="text" class="form-control" name="countP" placeholder="Quantity"
+            value="<%= data.countP %>" required>
+        </div>
+        <div class="form-group col-2">
+          <label for="inputEmail4">Product Group</label>
+          <input type="text" class="form-control" name="idGroup" placeholder="Group product"
+            value="<%= data.idGroup %>" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Information</label>
+          <input type="text" class="form-control" name="infoP" placeholder="Info product"
+            value="<%= data.infoP %>" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Parameter</label>
+          <input type="text" class="form-control" name="parameterP" placeholder="parameter product"
+            value="<%= data.parameterP %>" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class='col-3'>
+          <label>Avatar</label>
+          <div class='preview-image-container'>
+              <input id="previewImg" type='file' hidden
+                  onChange={(e) => { this.handleOnchangeImage(e) }} />
+              <label className='lable-img' htmlFor='previewImg'
+
+              >Tai anh</label>
+              <div className='preview-image-content'
+                  style={{ backgroundImage: `url(${this.state.previewImageUrl})` }}
+                  onClick={() => { this.openPreviewImage() }}
+              >
+              </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="form-group col-md-1">
+        <% if (idProduct != -1) { %> selected<%} %>
+        <select class="form-control " name="idAuth">
+          <option value="1" <% if (data.idAuth == 1) { %> selected<%} %> >Admin</option>
+          <option value="2" <% if (data.idAuth == 2) { %> selected<%} %> >Manager</option>
+          <option value="3" <% if (data.idAuth == 3) { %> selected<%} %> >Member</option>
+        </select>
+      </div> -->
+      <input type="text" name="id" value="<%= data.id %>" hidden />
+      <div class="form-group mt-3">
+        <% if (idProduct != -1) { %>
+          <button type="submit" class="btn btn-primary">Update</button>
+        <%} else { %>
+            <button class="btn btn-primary" form="edit-add-form" onclick="checker(event)"> Create product</button>
+        <% } %>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

@@ -1,20 +1,20 @@
 import db from "../models/index";
 
-let handleGetProduct=(idProduct)=>{
+let handleGetSlide=(idSlide)=>{
   return new Promise(async(resolve, reject)=>{
     try{
-      let product;
-      if(!idProduct){
-        product = await db.Product.findAll();
+      let slide;
+      if(!idSlide){
+        slide = await db.Slide.findAll();
       }else{
-        product = await db.Product.findOne({
-          where: {id: idProduct}
+        slide = await db.Slide.findOne({
+          where: {id: idSlide}
         });
       }
       return resolve({
         errCode: 0,
-        message: "Get product successfully!",
-        data: product
+        message: "Get slide successfully!",
+        data: slide
       })
     }catch(e){
       reject(e);
@@ -22,7 +22,7 @@ let handleGetProduct=(idProduct)=>{
   });
 }
 
-let handleCreateProduct = async (data) => {
+let handleCreateSlide = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       if(!data){
@@ -31,7 +31,7 @@ let handleCreateProduct = async (data) => {
           errMessage: "Missing input!"
         })
       }
-      await db.Product.create({
+      await db.Slide.create({
         idGroup: data.idGroup,
         nameP: data.nameP,
         priceP: data.priceP,
@@ -42,7 +42,7 @@ let handleCreateProduct = async (data) => {
       })
       resolve({
         errCode: 0,
-        message: "Create product successfully!"
+        message: "Create slide successfully!"
       });
     } catch (e) {
       reject(e)
@@ -50,7 +50,7 @@ let handleCreateProduct = async (data) => {
   })
 }
 
-let handleUpdateProduct = (data) => {
+let handleUpdateSlide = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!data.id) {
@@ -59,28 +59,28 @@ let handleUpdateProduct = (data) => {
           errMessage: "Missing input parameter"
         })
       }
-      let product = await db.Product.findOne({
+      let slide = await db.Slide.findOne({
         where: { id: data.id },
         raw: false
       })
-      if (!product) {
+      if (!slide) {
         resolve({
           errCode: 2,
-          errMessage: "Product not found!"
+          errMessage: "Slide not found!"
         })
       }
-      product.idGroup = data.idGroup;
-      product.nameP = data.nameP;
-      product.priceP = data.priceP;
-      product.countP = data.countP;
-      product.imageP = data.imageP;
-      product.infoP = data.infoP;
-      product.parameterP = data.parameterP;
-      product.save();
-      // let products = await db.Product.findAll();
+      slide.idGroup = data.idGroup;
+      slide.nameP = data.nameP;
+      slide.priceP = data.priceP;
+      slide.countP = data.countP;
+      slide.imageP = data.imageP;
+      slide.infoP = data.infoP;
+      slide.parameterP = data.parameterP;
+      slide.save();
+      // let slides = await db.Slide.findAll();
       resolve({
         errCode: 0,
-        message: "Update Product Successfully!",
+        message: "Update Slide Successfully!",
       })
     } catch (e) {
       reject(e)
@@ -88,30 +88,30 @@ let handleUpdateProduct = (data) => {
   })
 }
 
-let handleDeleteProduct = async(idProduct)=>{
+let handleDeleteSlide = async(idSlide)=>{
   return new Promise(async(resolve, reject)=>{
     try{
-      if(!idProduct){
+      if(!idSlide){
         resolve({
           errCode: 1,
           errMessage: "Missing input parameter!"
         })
       }
-      let product = await db.Product.findOne({
-        where: {id: idProduct},
+      let slide = await db.Slide.findOne({
+        where: {id: idSlide},
         raw: false
       })
-      if(!product){
+      if(!slide){
         resolve({
           errCode: 2,
-          errMessage: "Product not found!"
+          errMessage: "Slide not found!"
         })
       }
-      await product.destroy();
-      // let products = await db.Product.findAll();
+      await slide.destroy();
+      // let slides = await db.Slide.findAll();
       resolve({
         errCode:0,
-        message: "Delete product successfully!"
+        message: "Delete slide successfully!"
       })
     }catch(e){
       reject(e);
@@ -120,8 +120,8 @@ let handleDeleteProduct = async(idProduct)=>{
 }
 
 module.exports = {
-  handleCreateProduct,
-  handleGetProduct,
-  handleUpdateProduct,
-  handleDeleteProduct
+  handleCreateSlide,
+  handleGetSlide,
+  handleUpdateSlide,
+  handleDeleteSlide
 }

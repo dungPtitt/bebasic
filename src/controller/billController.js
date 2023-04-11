@@ -1,11 +1,11 @@
-import productService from "../services/productService";
+import billService from "../services/billService";
 //web
-let createProductWeb = async(req, res)=>{
+let createBillWeb = async(req, res)=>{
   try {
     let data = req.body;
     console.log(data);
-    let response = await productService.handleCreateProduct(data);
-    res.redirect("/product");
+    let response = await billService.handleCreateBill(data);
+    res.redirect("/bill");
   } catch (e) {
     console.log(e);
     return res.status(200).json({
@@ -15,13 +15,13 @@ let createProductWeb = async(req, res)=>{
   }
 }
 
-let getEditAddProduct = async(req, res)=>{
+let getEditAddBill = async(req, res)=>{
   try{
     let response = "";
-    let idProduct = req.query.id;
-    if(idProduct!=-1){
-      response = await productService.handleGetProduct(idProduct);
-      return res.render("admin/EditAndAddProduct.ejs", {data: response.data, idProduct: idProduct});
+    let idBill = req.query.id;
+    if(idBill!=-1){
+      response = await billService.handleGetBill(idBill);
+      return res.render("admin/EditAndAddBill.ejs", {data: response.data, idBill: idBill});
     }else{// xu ly them moi
       let data = {
         id: "",
@@ -33,7 +33,7 @@ let getEditAddProduct = async(req, res)=>{
         parameterP: "",
         idGroup: ""
       }
-      return res.render("admin/EditAndAddProduct.ejs", {data: data, idProduct: idProduct});
+      return res.render("admin/EditAndAddBill.ejs", {data: data, idBill: idBill});
     }
   }catch(e){
     res.status(500).json({
@@ -43,12 +43,12 @@ let getEditAddProduct = async(req, res)=>{
   }
 }
 
-//@----------------------------------------controllor product api----------------------------------
+//@----------------------------------------controllor bill api----------------------------------
 //api
-let getProduct = async (req, res) => {
+let getBill = async (req, res) => {
   try{
     let id = req.query.id;
-    let response = await productService.handleGetProduct(id);
+    let response = await billService.handleGetBill(id);
     return res.status(200).json(response);
   }catch(e){
     console.log(e);
@@ -60,10 +60,10 @@ let getProduct = async (req, res) => {
   
 }
 
-let createProduct = async(req, res)=>{
+let createBill = async(req, res)=>{
   try {
     let data = req.body;
-    let response = await productService.handleCreateProduct(data);
+    let response = await billService.handleCreateBill(data);
     return res.status(200).json(response);
   } catch (e) {
     console.log(e);
@@ -74,10 +74,10 @@ let createProduct = async(req, res)=>{
   }
 }
 
-let updateProduct = async (req, res) => {
+let updateBill = async (req, res) => {
   try{
     let data = req.body;
-    let response = await productService.handleUpdateProduct(data);
+    let response = await billService.handleUpdateBill(data);
     return res.status(200).json(response);
   }catch(e){
     console.log(e);
@@ -89,10 +89,10 @@ let updateProduct = async (req, res) => {
   
 }
 
-let deleteProduct = async (req, res) => {
+let deleteBill = async (req, res) => {
   try {
-    let idProduct = req.query.id;
-    let response = await productService.handleDeleteProduct(idProduct);
+    let idBill = req.query.id;
+    let response = await billService.handleDeleteBill(idBill);
     return res.status(200).json(response);
   }catch(e) {
     console.log(e);
@@ -104,11 +104,11 @@ let deleteProduct = async (req, res) => {
 }
 
 module.exports = {
-  createProductWeb,
-  getEditAddProduct,
+  createBillWeb,
+  getEditAddBill,
   ///-------------
-  getProduct,
-  createProduct,
-  updateProduct,
-  deleteProduct,
+  getBill,
+  createBill,
+  updateBill,
+  deleteBill,
 }

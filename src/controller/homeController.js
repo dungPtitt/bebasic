@@ -1,4 +1,4 @@
-
+import productService from "../services/productService";
 import accountService from "../services/accountService";
 
 let testApi = async(req, res)=>{
@@ -87,7 +87,19 @@ let updateUser = async (req, res)=> {
 }
 
 let getHomePage = (req, res)=> {
-  res.render("login.ejs", {data: null});
+  try{
+    res.render("login.ejs", {data: null});
+    res.status(200).json({
+      errCode: 0,
+      message: "Ok"
+    })
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Err from server!"
+    })
+  }
 }
 
 let getManagerPage = (req, res)=>{
@@ -103,7 +115,7 @@ let handleLogin = async (req, res)=>{
     let data = req.body;
     let response = await accountService.handleUserLogin(data.email, data.password);
     if(response.errCode==0){
-      switch (response.dataAcc.idAuth) {
+    switch (response.dataAcc.idAuth) {
         case 1:
           res.redirect("/admin-page");
         case 2:
@@ -116,6 +128,7 @@ let handleLogin = async (req, res)=>{
     }else{
       res.render("login.ejs", {data: JSON.stringify(response.errMessage)});
     }
+    return;
   }catch(e){
     console.log(e);
     res.status(500).json({
@@ -127,10 +140,11 @@ let handleLogin = async (req, res)=>{
 
 let getAdminPage = async (req, res)=>{
   try{
-    let response = await accountService.handleGetAcc("All");
-    if(response.errCode===0){
-      res.render("account.ejs", {data: response.data});
-    }
+    // let response = await accountService.handleGetAcc("All");
+    // if(response.errCode===0){
+    //   res.render("account.ejs", {data: response.data});
+    // }
+    return res.render("home.ejs");
   }catch(e){
     console.log(e);
     res.status(500).json({
@@ -140,7 +154,42 @@ let getAdminPage = async (req, res)=>{
   }
 }
 
+let getManageAccount = async (req, res)=>{
+  try{
+    let response = await accountService.handleGetAcc("All");
+    if(response.errCode===0){
+      return res.render("account.ejs", {data: response.data});
+    }
+  }catch(e){
+    console.log(e);
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+}
+
+let getManageProduct = async (req, res)=>{
+  try{
+    let response = await productService.handleGetProduct();
+    if(response.errCode===0){
+      return res.render("product.ejs", {data: response.data});
+    }
+  }catch(e){
+    console.log(e);
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+}
+
+
+
+
 module.exports = {
+  getManageAccount,
+  getManageProduct,
   getHomePage,
   handleLogin,
   getAboutPage,
