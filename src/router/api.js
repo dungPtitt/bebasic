@@ -1,6 +1,7 @@
 import express from "express";
 import accountController from "../controller/accountController";
 import productController from "../controller/productController";
+import apiController from "../controller/apiController";
 
 let router = express.Router()
      
@@ -14,7 +15,8 @@ const initAPIRoute = (app)=> {
   router.post("/create-product", productController.createProduct);
   router.put("/update-product", productController.updateProduct);
   router.delete("/delete-product", productController.deleteProduct);
-  
+
+  router.post("/login", apiController.checkLogin);
   return app.use("/api/v1/", router);
 }
 

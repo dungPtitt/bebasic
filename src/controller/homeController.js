@@ -117,18 +117,17 @@ let handleLogin = async (req, res)=>{
     if(response.errCode==0){
     switch (response.dataAcc.idAuth) {
         case 1:
-          res.redirect("/admin-page");
+          return res.redirect("/admin-page");
         case 2:
-          res.redirect("/manager-page");
+          return res.redirect("/manager-page");
         case 3:
-          res.redirect("/member-page");
+          return res.redirect("/member-page");
         default:
-          res.render("login.ejs");
+          return res.render("login.ejs");
       }
     }else{
-      res.render("login.ejs", {data: JSON.stringify(response.errMessage)});
+      return res.render("login.ejs", {data: JSON.stringify(response.errMessage)});
     }
-    return;
   }catch(e){
     console.log(e);
     res.status(500).json({
@@ -147,7 +146,7 @@ let getAdminPage = async (req, res)=>{
     return res.render("home.ejs");
   }catch(e){
     console.log(e);
-    res.status(500).json({
+    return res.status(500).json({
       errCode: -1,
       errMessage: "Error from server!"
     })

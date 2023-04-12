@@ -52,12 +52,12 @@
       <div class="form-row">
         <div class="form-group col-2">
           <label for="inputPassword4">Price</label>
-          <input type="text" class="form-control" name="priceP" placeholder="Price"
+          <input type="number" class="form-control" name="priceP" placeholder="Price"
             value="<%= data.priceP %>" required>
         </div>
         <div class="form-group col-2">
           <label for="inputPassword4">Quantity</label>
-          <input type="text" class="form-control" name="countP" placeholder="Quantity"
+          <input type="number" class="form-control" name="countP" placeholder="Quantity"
             value="<%= data.countP %>" required>
         </div>
         <div class="form-group col-2">
@@ -83,29 +83,21 @@
       </div>
       <div class="form-row">
         <div class='col-3'>
-          <label>Avatar</label>
+          <label>Image's product</label>
           <div class='preview-image-container'>
-              <input id="previewImg" type='file' hidden
+              <!-- <input id="previewImg" type='file' hidden
                   onChange={(e) => { this.handleOnchangeImage(e) }} />
               <label className='lable-img' htmlFor='previewImg'
 
               >Tai anh</label>
               <div className='preview-image-content'
-                  style={{ backgroundImage: `url(${this.state.previewImageUrl})` }}
+                  style=" backgroundImage: `url(${this.state.previewImageUrl})`"
                   onClick={() => { this.openPreviewImage() }}
               >
-              </div>
+              </div> -->
           </div>
         </div>
       </div>
-      <!-- <div class="form-group col-md-1">
-        <% if (idProduct != -1) { %> selected<%} %>
-        <select class="form-control " name="idAuth">
-          <option value="1" <% if (data.idAuth == 1) { %> selected<%} %> >Admin</option>
-          <option value="2" <% if (data.idAuth == 2) { %> selected<%} %> >Manager</option>
-          <option value="3" <% if (data.idAuth == 3) { %> selected<%} %> >Member</option>
-        </select>
-      </div> -->
       <input type="text" name="id" value="<%= data.id %>" hidden />
       <div class="form-group mt-3">
         <% if (idProduct != -1) { %>

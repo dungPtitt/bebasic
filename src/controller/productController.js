@@ -5,10 +5,38 @@ let createProductWeb = async(req, res)=>{
     let data = req.body;
     console.log(data);
     let response = await productService.handleCreateProduct(data);
-    res.redirect("/product");
+    return res.redirect("/product");
   } catch (e) {
     console.log(e);
     return res.status(200).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+}
+
+let updateProductWeb = async(req, res)=>{
+  try{
+    let data = req.body;
+    await productService.handleUpdateProduct(data);
+    return res.redirect("/product");
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+}
+
+let deleteProductWeb = async(req, res)=>{
+  try {
+    let idProduct = req.query.id;
+    await productService.handleDeleteProduct(idProduct);
+    return res.redirect("/product");
+  }catch(e) {
+    console.log(e);
+    res.status(500).json({
       errCode: -1,
       errMessage: "Error from server!"
     })
@@ -74,6 +102,7 @@ let createProduct = async(req, res)=>{
   }
 }
 
+
 let updateProduct = async (req, res) => {
   try{
     let data = req.body;
@@ -106,6 +135,8 @@ let deleteProduct = async (req, res) => {
 module.exports = {
   createProductWeb,
   getEditAddProduct,
+  deleteProductWeb,
+  updateProductWeb,
   ///-------------
   getProduct,
   createProduct,

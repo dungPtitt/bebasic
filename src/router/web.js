@@ -13,18 +13,22 @@ const initWebRoute = (app)=> {
   router.get("/manager-page", homeController.getManagerPage);
   router.get("/member-page", homeController.getMemberPage);
 
+  //giao dien CRUD account phia server
   router.post("/create-acc", accountController.createAccWeb);
   router.get("/edit-add-acc", accountController.getEditAcc);
   router.post("/update-acc", accountController.getUpdateAcc);
   router.get("/delete-acc", accountController.deleteAccWeb);
   router.get("/get-all-acc", homeController.getAllAcc);
+
+  //
   router.post("/create-slide", homeController.createSlide);
   router.get("/test", homeController.testApi);
 
+  // giao dien CRUD phia server
   router.post("/create-product", productController.createProductWeb);
   router.get("/edit-add-product", productController.getEditAddProduct);
-  // router.post("/update-product", productController.getUpdateAcc);
-  // router.get("/delete-acc", accountController.deleteAccWeb);
+  router.post("/update-product", productController.updateProductWeb);
+  router.get("/delete-product", productController.deleteProductWeb);
   return app.use("/", router);
 }
 

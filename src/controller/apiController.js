@@ -1,3 +1,4 @@
+import accountService from "../services/accountService";
 import pool from "../configs/connectDB";
 let getUsers = async(req, res)=> {
   let [rows, fields] = await pool.execute("select * from users")
@@ -47,9 +48,25 @@ let deleteUser = async(req, res)=> {
     message: "delete user success"
   })
 }
+
+let checkLogin = async(req, res)=>{
+  try{
+    let data = req.body;
+    let response = await accountService.handleUserLogin(data.email, data.password);
+    return res.status(200).json(response);
+  }catch(e){
+    console.log(e);
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: "Err from server!"
+    })
+  }
+}
 module.exports = {
   getUsers,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+
+  checkLogin,
 }

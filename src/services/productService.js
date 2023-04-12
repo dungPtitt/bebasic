@@ -36,7 +36,7 @@ let handleCreateProduct = async (data) => {
         nameP: data.nameP,
         priceP: data.priceP,
         countP: data.countP,
-        imageP: data.imageP,
+        imageP: "",
         infoP: data.infoP,
         parameterP: data.parameterP
       })
@@ -73,7 +73,7 @@ let handleUpdateProduct = (data) => {
       product.nameP = data.nameP;
       product.priceP = data.priceP;
       product.countP = data.countP;
-      product.imageP = data.imageP;
+      product.imageP = "";
       product.infoP = data.infoP;
       product.parameterP = data.parameterP;
       product.save();
