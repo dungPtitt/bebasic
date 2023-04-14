@@ -62,6 +62,23 @@ let checkLogin = async(req, res)=>{
     })
   }
 }
+
+let registerMember = async(req, res)=>{
+  try{
+    let data = req.body;
+    let response = await accountService.handleCreateAcc(data);
+    return res.status(200).json({
+      errCode: 0,
+      message: "Register successfully!"
+    });
+  }catch(e){
+    console.log(e);
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: "Err from server!"
+    })
+  }
+}
 module.exports = {
   getUsers,
   createUser,
@@ -69,4 +86,5 @@ module.exports = {
   deleteUser,
 
   checkLogin,
+  registerMember,
 }

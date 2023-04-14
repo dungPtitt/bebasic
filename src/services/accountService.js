@@ -123,6 +123,9 @@ let handleCreateAcc = async (data) => {
         })
       }
       let hashPasswordFromBcrypt = await hashUserPassword(data.passwordAcc);
+      if(!data.idAuth){
+        data.idAuth = 2;
+      }
       await db.Account.create({
         idAuth: parseInt(data.idAuth),
         nameAcc: data.nameAcc,

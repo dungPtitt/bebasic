@@ -17,6 +17,7 @@ const initAPIRoute = (app)=> {
   router.delete("/delete-product", productController.deleteProduct);
 
   router.post("/login", apiController.checkLogin);
+  router.post("/register-member", apiController.registerMember);
   return app.use("/api/v1/", router);
 }
 

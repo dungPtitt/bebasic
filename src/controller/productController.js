@@ -4,7 +4,7 @@ let createProductWeb = async(req, res)=>{
   try {
     let data = req.body;
     console.log(data);
-    let response = await productService.handleCreateProduct(data);
+    // let response = await productService.handleCreateProduct(data);
     return res.redirect("/product");
   } catch (e) {
     console.log(e);
