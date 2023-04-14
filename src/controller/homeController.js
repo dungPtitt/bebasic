@@ -88,14 +88,10 @@ let updateUser = async (req, res)=> {
 
 let getHomePage = (req, res)=> {
   try{
-    res.render("login.ejs", {data: null});
-    res.status(200).json({
-      errCode: 0,
-      message: "Ok"
-    })
+    return res.render("login.ejs", {data: null});
   }catch(e){
     console.log(e);
-    res.status(500).json({
+    return res.status(500).json({
       errCode: -1,
       errMessage: "Err from server!"
     })
@@ -143,7 +139,7 @@ let getAdminPage = async (req, res)=>{
     // if(response.errCode===0){
     //   res.render("account.ejs", {data: response.data});
     // }
-    return res.render("home.ejs");
+    return res.render("admin/home.ejs");
   }catch(e){
     console.log(e);
     return res.status(500).json({

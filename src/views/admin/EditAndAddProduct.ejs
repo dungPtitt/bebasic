@@ -24,6 +24,22 @@
       }
       
     }
+    let handleOnchangeImage = async (e) => {
+        let file = e.target.files[0];
+        const objectUrl = URL.createObjectURL(file)
+        // let base64 = await CommonUtils.getBase64(file);
+        console.log(objectUrl)
+        if (file) {
+            const objectUrl = URL.createObjectURL(file)
+            // let base64 = await CommonUtils.getBase64(file);
+            console.log(objectUrl)
+            // this.setState({
+            //     previewImageUrl: objectUrl,
+            //     image: base64
+            // })
+        }
+
+    }
   </script>
 </head>
 <body>
@@ -85,12 +101,12 @@
         <div class='col-3'>
           <label>Image's product</label>
           <div class='preview-image-container'>
-              <!-- <input id="previewImg" type='file' hidden
-                  onChange={(e) => { this.handleOnchangeImage(e) }} />
-              <label className='lable-img' htmlFor='previewImg'
+              <input id="previewImg" type='file' hidden
+                  onChange="(e) => { this.handleOnchangeImage(e) }" name="file-image"/>
+              <label class='lable-img' for='previewImg'
 
               >Tai anh</label>
-              <div className='preview-image-content'
+              <!-- <div className='preview-image-content'
                   style=" backgroundImage: `url(${this.state.previewImageUrl})`"
                   onClick={() => { this.openPreviewImage() }}
               >

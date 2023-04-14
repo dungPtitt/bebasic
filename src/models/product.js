@@ -23,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
     imageP: DataTypes.BLOB,
     infoP: DataTypes.STRING,
     parameterP: DataTypes.STRING
-    
   }, {
     sequelize,
     modelName: 'Product',

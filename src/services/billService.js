@@ -32,13 +32,16 @@ let handleCreateBill = async (data) => {
         })
       }
       await db.Bill.create({
-        idGroup: data.idGroup,
-        nameP: data.nameP,
-        priceP: data.priceP,
-        countP: data.countP,
-        imageP: data.imageP,
-        infoP: data.infoP,
-        parameterP: data.parameterP
+        idAcc: data.idAcc,
+        nameCustomer: data.nameCustomer?data.nameCustomer: "",
+        email: data.email?data.email: "",
+        phone: data.phone?data.phone:"",
+        address: data.address?data.address:"",
+        dateBill: data.dateBill?data.dateBill:"",
+        totalMoney: data.totalMoney?data.totalMoney: "",
+        methodPay: data.methodPay?data.methodPay: "",
+        noteBill: data.noteBill? data.noteBill:"",
+        statusBill:data.statusBill?data.statusBill:""
       })
       resolve({
         errCode: 0,

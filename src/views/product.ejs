@@ -54,15 +54,15 @@
       <td><%= data[i].infoP %></td>
       <td><%= data[i].parameterP %></td>
       <td> 
-        <a href="/edit-add-product?id=<%= data[i].id %>" >Edit</a>
-        <a href="/delete-product?id=<%= data[i].id %>" type="button" onclick="checker(event)">Delete</a>
+        <a href="edit-add-product?id=<%= data[i].id %>" >Edit</a>
+        <a href="delete-product?id=<%= data[i].id %>" type="button" onclick="checker(event)">Delete</a>
       </td>
     </tr>
  <% } %>
 </tbody>
 </table>
 <div style="text-align: center;">
-  <button class="btn btn-success"><a href="/edit-add-product?id=-1" type="button" style="text-decoration-line: none; color: white;">Add new product</a></button>
+  <button class="btn btn-success"><a href="edit-add-product?id=-1" type="button" style="text-decoration-line: none; color: white;">Add new product</a></button>
 </div>
 </div>
 </body>

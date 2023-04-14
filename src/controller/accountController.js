@@ -140,7 +140,7 @@ let createAccWeb = async(req, res)=>{
   try {
     let data = req.body;
     let response = await accountService.handleCreateAcc(data);
-    res.redirect("/");
+    res.redirect("account");
   } catch (e) {
     console.log(e);
     return res.status(200).json({
@@ -169,7 +169,7 @@ let getUpdateAcc = async(req, res)=>{
   try{
     let data = req.body;
     await accountService.handleUpdateAcc(data);
-    return res.redirect("/");
+    return res.redirect("account");
   }catch(e){
     console.log(e);
     res.status(500).json({
@@ -197,7 +197,7 @@ let deleteAccWeb = async (req, res) => {
   try {
     let idAcc = req.query.id;
     await accountService.handleDeleteAcc(idAcc);
-    res.redirect("/");
+    res.redirect("account");
   }catch(e) {
     console.log(e);
     res.status(500).json({
@@ -220,4 +220,6 @@ module.exports = {
   getAllAcc,
   updateAcc,
   deleteAcc
+
+  //
 }

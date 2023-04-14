@@ -3,9 +3,9 @@ import productService from "../services/productService";
 let createProductWeb = async(req, res)=>{
   try {
     let data = req.body;
-    console.log(data);
-    // let response = await productService.handleCreateProduct(data);
-    return res.redirect("/product");
+    // console.log(data);
+    let response = await productService.handleCreateProduct(data);
+    return res.redirect("product");
   } catch (e) {
     console.log(e);
     return res.status(200).json({
@@ -19,7 +19,7 @@ let updateProductWeb = async(req, res)=>{
   try{
     let data = req.body;
     await productService.handleUpdateProduct(data);
-    return res.redirect("/product");
+    return res.redirect("product");
   }catch(e){
     console.log(e);
     res.status(500).json({
@@ -33,7 +33,7 @@ let deleteProductWeb = async(req, res)=>{
   try {
     let idProduct = req.query.id;
     await productService.handleDeleteProduct(idProduct);
-    return res.redirect("/product");
+    return res.redirect("product");
   }catch(e) {
     console.log(e);
     res.status(500).json({

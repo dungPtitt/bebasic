@@ -60,15 +60,15 @@
       <td><%= data[i].nameAcc %></td>
       <td><%= data[i].emailAcc %></td>
       <td> 
-        <a href="/edit-add-acc?id=<%= data[i].id %>" >Edit</a>
-        <a href="/delete-acc?id=<%= data[i].id %>" type="button" onclick="checker(event)">Delete</a>
+        <a href="edit-add-acc?id=<%= data[i].id %>" >Edit</a>
+        <a href="delete-acc?id=<%= data[i].id %>" type="button" onclick="checker(event)">Delete</a>
       </td>
     </tr>
  <% } %>
 </tbody>
 </table>
 <div style="text-align: center;">
-  <button class="btn btn-success"><a href="/edit-add-acc?id=-1" type="button" style="text-decoration-line: none; color: white;">Add new account</a></button>
+  <button class="btn btn-success"><a href="edit-add-acc?id=-1" type="button" style="text-decoration-line: none; color: white;">Add new account</a></button>
 </div>
 </div>
 </body>

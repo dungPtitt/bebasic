@@ -5,12 +5,17 @@ import initWebRoute from './router/web';
 import initAPIRoute from './router/api';
 import checkConnectDB from "./configs/connectDB";
 import initAdminRoute from "./router/admin";
+import initManagerRoute from "./router/manager";
+
 import bodyParser from "body-parser";
+import cookieParser from'cookie-parser';
+
 // import multer from 'multer';
 
 require('dotenv').config()
 const app = express()
-
+//use cookie
+app.use(cookieParser());
 
 app.use(cors({
   origin: true
@@ -29,6 +34,7 @@ initWebRoute(app);
 //init api route
 initAPIRoute(app);
 initAdminRoute(app);
+initManagerRoute(app);
 
 checkConnectDB();
 
