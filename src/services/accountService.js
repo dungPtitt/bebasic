@@ -128,7 +128,7 @@ let handleCreateAcc = async (data) => {
           errMessage: "Missing input value!"
         })
       }
-      let acc = db.Account.findOne({
+      let acc = await db.Account.findOne({
         where: {nameAcc: data.nameAcc, emailAcc: data.emailAcc}
       })
       if(acc){

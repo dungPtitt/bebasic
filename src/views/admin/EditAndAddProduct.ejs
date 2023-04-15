@@ -98,20 +98,10 @@
         </div>
       </div>
       <div class="form-row">
-        <div class='col-3'>
-          <label>Image's product</label>
-          <div class='preview-image-container'>
-              <input id="previewImg" type='file' hidden
-                  onChange="(e) => { this.handleOnchangeImage(e) }" name="file-image"/>
-              <label class='lable-img' for='previewImg'
-
-              >Tai anh</label>
-              <!-- <div className='preview-image-content'
-                  style=" backgroundImage: `url(${this.state.previewImageUrl})`"
-                  onClick={() => { this.openPreviewImage() }}
-              >
-              </div> -->
-          </div>
+        <div class='col-6'>
+          <label>Link image's product</label>
+          <input type="text" class="form-control" name="imageP" placeholder="link image's product"
+            value="<%= data.imageP %>" required>
         </div>
       </div>
       <input type="text" name="id" value="<%= data.id %>" hidden />

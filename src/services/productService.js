@@ -54,9 +54,15 @@ let handleUpdateProduct = (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       if (!data.id) {
-        resolve({
+        return resolve({
           errCode: 1,
           errMessage: "Missing input parameter"
+        })
+      }
+      if(!data.nameP||!data.priceP||!data.imageP){
+        return resolve({
+          errCode: 1,
+          errMessage: "Missing input value"
         })
       }
       let product = await db.Product.findOne({
@@ -73,7 +79,7 @@ let handleUpdateProduct = (data) => {
       product.nameP = data.nameP;
       product.priceP = data.priceP;
       product.countP = data.countP;
-      product.imageP = "";
+      product.imageP = data.imageP;
       product.infoP = data.infoP;
       product.parameterP = data.parameterP;
       product.save();
