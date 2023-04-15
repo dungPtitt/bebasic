@@ -117,9 +117,24 @@ let handleCreateAcc = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       if(!data){
-        resolve({
+        return resolve({
           errCode:1,
-          errMessage: "Missing input successfully!"
+          errMessage: "Missing input value!"
+        })
+      }
+      if(!data.nameAcc||!data.emailAcc|| !data.passwordAcc){
+        return resolve({
+          errCode: 1,
+          errMessage: "Missing input value!"
+        })
+      }
+      let acc = db.Account.findOne({
+        where: {nameAcc: data.nameAcc, emailAcc: data.emailAcc}
+      })
+      if(acc){
+        return resolve({
+          errCode: 2,
+          errMessage: "Your email is already in use"
         })
       }
       let hashPasswordFromBcrypt = await hashUserPassword(data.passwordAcc);
@@ -132,7 +147,7 @@ let handleCreateAcc = async (data) => {
         emailAcc: data.emailAcc,
         passwordAcc: hashPasswordFromBcrypt
       })
-      resolve({
+      return resolve({
         errCode: 0,
         message: "Create account successfully!"
       });

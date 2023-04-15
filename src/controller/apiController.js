@@ -67,10 +67,14 @@ let registerMember = async(req, res)=>{
   try{
     let data = req.body;
     let response = await accountService.handleCreateAcc(data);
-    return res.status(200).json({
-      errCode: 0,
-      message: "Register successfully!"
-    });
+    if(response.errCode==0){
+      return res.status(200).json({
+        errCode: 0,
+        message: "Register successfully!"
+      });
+    }
+    return res.status(200).json(response);
+    
   }catch(e){
     console.log(e);
     return res.status(500).json({

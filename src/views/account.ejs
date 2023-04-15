@@ -36,9 +36,10 @@
 
 
 <h1 style="text-align: center;">Table Account</h1>
-<table id="customers" class="table-active table">
+<table id="customers" class="table">
   <thead class="table-success">
     <tr>
+      <th>STT</th>
       <th>Authority</th>
       <th>Name</th>
       <th>Email</th>
@@ -48,6 +49,7 @@
   <tbody>
   <% for(var i=0; i < data.length; i++) { %>
     <tr>
+      <td><%=i+1%></td>
       <td><% if (data[i].idAuth == 1) { %>
             Admin
         <% } else if (data[i].idAuth == 2) { %>

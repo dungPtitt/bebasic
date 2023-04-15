@@ -140,7 +140,10 @@ let createAccWeb = async(req, res)=>{
   try {
     let data = req.body;
     let response = await accountService.handleCreateAcc(data);
-    res.redirect("account");
+    if(response.errCode==0){
+      return res.redirect("account");
+    }
+    return res.render("errPage", {errMessage: response.errMessage});
   } catch (e) {
     console.log(e);
     return res.status(200).json({
