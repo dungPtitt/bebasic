@@ -2,8 +2,8 @@ import express from "express";
 import homeController from "../controller/homeController";
 import accountController from "../controller/accountController";
 import productController from "../controller/productController";
-import loginService from "../services/loginService";
-
+import billController from "../controller/billController";
+import adminControllor from "../controller/adminController";
 
 let router = express.Router()
      
@@ -27,6 +27,8 @@ const initAdminRoute = (app)=> {
   router.get("/", homeController.getAdminPage);
   router.get("/account", homeController.getManageAccount);
   router.get("/product", homeController.getManageProduct);
+  router.get("/bill", homeController.getManageBill);
+  router.get("/group-product", adminControllor.getManageGroupProduct);
 
   router.post("/create-acc", accountController.createAccWeb);
   router.get("/edit-add-acc", accountController.getEditAcc);
@@ -37,6 +39,11 @@ const initAdminRoute = (app)=> {
   router.get("/edit-add-product", productController.getEditAddProduct);
   router.post("/update-product", productController.updateProductWeb);
   router.get("/delete-product", productController.deleteProductWeb);
+
+  router.post("/create-bill", billController.createBillWeb);
+  router.get("/edit-add-bill", billController.getEditAddBill);
+  // router.post("/update-bill", billController.updateProductWeb);
+  // router.get("/delete-bill", billController.deleteProductWeb);
   return app.use("/admin/", checkLogin, router);
 }
 

@@ -26,9 +26,15 @@ let handleCreateProduct = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       if(!data){
-        resolve({
+        return resolve({
           errCode:1,
           errMessage: "Missing input!"
+        })
+      }
+      if(!data.nameP ||!data.priceP || !data.countP ||!data.imageP){
+        return resolve({
+          errCode:1,
+          errMessage: "Missing input value!"
         })
       }
       await db.Product.create({
@@ -36,7 +42,7 @@ let handleCreateProduct = async (data) => {
         nameP: data.nameP,
         priceP: data.priceP,
         countP: data.countP,
-        imageP: "",
+        imageP: data.imageP,
         infoP: data.infoP,
         parameterP: data.parameterP
       })
@@ -125,9 +131,36 @@ let handleDeleteProduct = async(idProduct)=>{
   })
 }
 
+let handleGetProductByGroup=(idGroup)=>{
+  return new Promise(async(resolve, reject)=>{
+    try{
+      if(!idGroup){
+        return resolve({
+          errCode: 1,
+          errMessage: "Missing value idGroup!"
+        })
+      }
+      let products = await db.Product.findAll({
+        where: {idGroup: idGroup}
+      });
+      return resolve({
+        errCode: 0,
+        message: "Get products by group successfully!",
+        data: products
+      })
+    }catch(e){
+      reject(e);
+    }
+  });
+}
+
+//.................................
+
 module.exports = {
   handleCreateProduct,
   handleGetProduct,
   handleUpdateProduct,
-  handleDeleteProduct
+  handleDeleteProduct,
+  //
+  handleGetProductByGroup
 }

@@ -25,7 +25,7 @@ app.use(cors({
 // Parse JSON bodies (as sent by API clients)
 // app.use(express.json());
 app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 //set ejs engine
 configViewEngine(app);

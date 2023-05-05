@@ -3,9 +3,10 @@ import billService from "../services/billService";
 let createBillWeb = async(req, res)=>{
   try {
     let data = req.body;
-    console.log(data);
     let response = await billService.handleCreateBill(data);
-    res.redirect("/bill");
+    if(response.errCode==0){
+      return res.redirect("bill");
+    }
   } catch (e) {
     console.log(e);
     return res.status(200).json({
@@ -25,13 +26,9 @@ let getEditAddBill = async(req, res)=>{
     }else{// xu ly them moi
       let data = {
         id: "",
-        nameP:"",
-        priceP: "",
-        countP:"",
-        imageP: "",
-        infoP: "",
-        parameterP: "",
-        idGroup: ""
+        nameCustomer:"",
+        email: "",
+        dateBill:""
       }
       return res.render("admin/EditAndAddBill.ejs", {data: data, idBill: idBill});
     }
@@ -63,6 +60,7 @@ let getBill = async (req, res) => {
 let createBill = async(req, res)=>{
   try {
     let data = req.body;
+    // console.log(data);
     let response = await billService.handleCreateBill(data);
     return res.status(200).json(response);
   } catch (e) {

@@ -8,8 +8,21 @@ let handleGetBill=(idBill)=>{
         bill = await db.Bill.findAll();
       }else{
         bill = await db.Bill.findOne({
-          where: {id: idBill}
-        });
+          where: { id: idBill },
+          include: [
+            {
+              model: db.Bill,
+              as: "DataAuth",
+              attributes: ["nameAuth"]
+            },
+            {
+              model: db.Bill,
+              as: "DataAccAndBill"
+            }
+          ],
+          raw: true,
+          nest: true
+        })
       }
       return resolve({
         errCode: 0,
@@ -26,24 +39,39 @@ let handleCreateBill = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
       if(!data){
-        resolve({
+        return resolve({
           errCode:1,
           errMessage: "Missing input!"
         })
       }
       await db.Bill.create({
-        idAcc: data.idAcc,
+        idAcc: data.idAcc?data.idAcc: 8,
         nameCustomer: data.nameCustomer?data.nameCustomer: "",
         email: data.email?data.email: "",
         phone: data.phone?data.phone:"",
         address: data.address?data.address:"",
         dateBill: data.dateBill?data.dateBill:"",
-        totalMoney: data.totalMoney?data.totalMoney: "",
-        methodPay: data.methodPay?data.methodPay: "",
+        totalMoney: data.totalMoney?data.totalMoney: 0,
+        methodPay: data.methodPay?data.methodPay: '',
         noteBill: data.noteBill? data.noteBill:"",
-        statusBill:data.statusBill?data.statusBill:""
+        statusBill:data.statusBill?data.statusBill:"",
+        idP: data.idP? data.idP: 2,
+        quantityP: data.quantityP? data.quantityP: 1
       })
-      resolve({
+      // cap nhat san pham
+      let product = await db.Product.findOne({
+        where: {id: data.idP},
+        raw: false
+      })
+      if(!product){
+        return resolve({
+          errCode: 3,
+          errMessage: "Product not found in db"
+        })
+      }
+      product.countP = product.countP - data.quantityP;
+      await product.save();
+      return resolve({
         errCode: 0,
         message: "Create bill successfully!"
       });

@@ -1,5 +1,6 @@
 import productService from "../services/productService";
 import accountService from "../services/accountService";
+import billService from "../services/billService";
 
 let testApi = async(req, res)=>{
   try{
@@ -179,12 +180,28 @@ let getManageProduct = async (req, res)=>{
   }
 }
 
+let getManageBill = async (req, res)=>{
+  try{
+    let response = await billService.handleGetBill();
+    if(response.errCode===0){
+      return res.render("bill.ejs", {data: response.data});
+    }
+  }catch(e){
+    console.log(e);
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+}
+
 
 
 
 module.exports = {
   getManageAccount,
   getManageProduct,
+  getManageBill,
   getHomePage,
   handleLogin,
   getAboutPage,

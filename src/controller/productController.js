@@ -5,7 +5,10 @@ let createProductWeb = async(req, res)=>{
     let data = req.body;
     // console.log(data);
     let response = await productService.handleCreateProduct(data);
-    return res.redirect("product");
+    if(response.errCode==0){
+      return res.redirect("product"); 
+    }
+    return res.render("errPage", {errMessage: response.errMessage});
   } catch (e) {
     console.log(e);
     return res.status(200).json({
@@ -18,8 +21,13 @@ let createProductWeb = async(req, res)=>{
 let updateProductWeb = async(req, res)=>{
   try{
     let data = req.body;
-    await productService.handleUpdateProduct(data);
-    return res.redirect("product");
+
+    let response = await productService.handleUpdateProduct(data);
+    if(response.errCode==0){
+      return res.redirect("product");
+    }
+    return res.render("errPage", {errMessage: response.errMessage});
+
   }catch(e){
     console.log(e);
     res.status(500).json({
@@ -72,7 +80,7 @@ let getEditAddProduct = async(req, res)=>{
 }
 
 //@----------------------------------------controllor product api----------------------------------
-//api
+//
 let getProduct = async (req, res) => {
   try{
     let id = req.query.id;
@@ -132,6 +140,41 @@ let deleteProduct = async (req, res) => {
   }
 }
 
+//them chuc nang khac------------------------------
+
+let getProductByGroup = async (req, res) => {
+  try{
+    let idGroup = req.query.idGroup;
+    let response = await productService.handleGetProductByGroup(idGroup);
+    return res.status(200).json(response);
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+  
+}
+
+let getProductByGroupWeb = async (req, res) => {
+  try{
+    let idGroup = req.query.idGroup;
+    let response = await productService.handleGetProductByGroup(idGroup);
+    if(response.errCode==0){
+      return res.render("product.ejs", {data: response.data});
+    }
+    return res.render("errPage.ejs", {errMessage: response.errMessage});
+  }catch(e){
+    console.log(e);
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+  
+}
+
 module.exports = {
   createProductWeb,
   getEditAddProduct,
@@ -142,4 +185,7 @@ module.exports = {
   createProduct,
   updateProduct,
   deleteProduct,
+  //
+  getProductByGroup,
+  getProductByGroupWeb
 }

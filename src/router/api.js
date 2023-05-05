@@ -16,11 +16,13 @@ const initAPIRoute = (app)=> {
   router.post("/create-product", productController.createProduct);
   router.put("/update-product", productController.updateProduct);
   router.delete("/delete-product", productController.deleteProduct);
+  router.get("/get-group-product", productController.getProductByGroup);
 
   router.post("/login", apiController.checkLogin);
   router.post("/register-member", apiController.registerMember);
 
   router.post("/create-bill", billController.createBill);
+  router.get("/get-bill", billController.getBill);
   return app.use("/api/v1/", router);
 }
 

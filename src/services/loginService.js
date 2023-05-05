@@ -47,7 +47,7 @@ let handleLogin = (data)=>{
           errMessage: "Wrong password. Please try again!"
         })
       }
-      let token = jwt.sign({ email: data.email }, 'mk', {expiresIn: 100});
+      let token = jwt.sign({ email: data.email }, 'mk', {expiresIn: 86400});//24 gio
       return resolve({
         errCode: 0,
         errMessage: "Valided",
