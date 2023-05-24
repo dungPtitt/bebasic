@@ -27,7 +27,6 @@ let handleUserLogin = async(email, password) => {
       }
       let acc = await db.Account.findOne({
         where: { emailAcc: email },
-        attributes: ['emailAcc', 'passwordAcc', 'idAuth'],
         raw: true
       })
       if(!acc){

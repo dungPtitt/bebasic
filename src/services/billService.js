@@ -1,27 +1,27 @@
 import db from "../models/index";
 
-let handleGetBill=(idBill)=>{
+let handleGetBill=(idAcc)=>{
   return new Promise(async(resolve, reject)=>{
     try{
       let bill;
-      if(!idBill){
+      if(!idAcc){
         bill = await db.Bill.findAll();
       }else{
-        bill = await db.Bill.findOne({
-          where: { id: idBill },
-          include: [
-            {
-              model: db.Bill,
-              as: "DataAuth",
-              attributes: ["nameAuth"]
-            },
-            {
-              model: db.Bill,
-              as: "DataAccAndBill"
-            }
-          ],
-          raw: true,
-          nest: true
+        bill = await db.Bill.findAll({
+          where: { idAcc: idAcc },
+          // include: [
+          //   {
+          //     model: db.Bill,
+          //     as: "DataAuth",
+          //     attributes: ["nameAuth"]
+          //   },
+          //   {
+          //     model: db.Bill,
+          //     as: "DataAccAndBill"
+          //   }
+          // ],
+          // raw: true,
+          // nest: true
         })
       }
       return resolve({
@@ -44,6 +44,7 @@ let handleCreateBill = async (data) => {
           errMessage: "Missing input!"
         })
       }
+      console.log("hh", data);
       await db.Bill.create({
         idAcc: data.idAcc?data.idAcc: 8,
         nameCustomer: data.nameCustomer?data.nameCustomer: "",

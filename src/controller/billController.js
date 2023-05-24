@@ -44,8 +44,8 @@ let getEditAddBill = async(req, res)=>{
 //api
 let getBill = async (req, res) => {
   try{
-    let id = req.query.id;
-    let response = await billService.handleGetBill(id);
+    let idAcc = req.query.idAcc;
+    let response = await billService.handleGetBill(idAcc);
     return res.status(200).json(response);
   }catch(e){
     console.log(e);
