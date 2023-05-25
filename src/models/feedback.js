@@ -14,12 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Feedback.init({
+    idAcc: DataTypes.INTEGER,
+    idProduct: DataTypes.INTEGER,
     nameCustomer: DataTypes.STRING,
     email: DataTypes.STRING,
     content: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Feedback',
+    tableName: 'feedbacks'
   });
   return Feedback;
 };

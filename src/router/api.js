@@ -2,6 +2,7 @@ import express from "express";
 import accountController from "../controller/accountController";
 import productController from "../controller/productController";
 import billController from "../controller/billController";
+import feedbackController from "../controller/feedbackController";
 import apiController from "../controller/apiController";
 
 let router = express.Router()
@@ -23,6 +24,9 @@ const initAPIRoute = (app)=> {
 
   router.post("/create-bill", billController.createBill);
   router.get("/get-bill", billController.getBill);
+  router.post("/create-feedback", feedbackController.createFeedback);
+  router.get("/get-feedback", feedbackController.getFeedback);
+
   return app.use("/api/v1/", router);
 }
 
