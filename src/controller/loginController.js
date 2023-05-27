@@ -6,7 +6,7 @@ let login = async(req, res)=>{
     let response = await loginService.handleLogin(data);
     if(response.errCode==0){
       res.cookie("token", response.data, {
-        maxAge: 86400// thoi gian song sau 1 phut;
+        maxAge: 86400*60// thoi gian song sau 60 phut;
       });
       return res.redirect("/verify");
     }
@@ -29,7 +29,7 @@ let verify = async(req, res)=>{
     if(response.errCode==0){
       //set idAuth vao cookie
       res.cookie("idAuth", response.data.idAuth, {
-        maxAge: 86400*60// thoi gian song sau 30 phut;
+        maxAge: 86400*60// thoi gian song sau 60 phut;
       });
       switch (response.data.idAuth) {
         case 1:

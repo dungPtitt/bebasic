@@ -29,6 +29,8 @@ const initAdminRoute = (app)=> {
   router.get("/product", homeController.getManageProduct);
   router.get("/bill", homeController.getManageBill);
   router.get("/group-product", adminControllor.getManageGroupProduct);
+  router.get("/get-product-bygroup", productController.getProductByGroupWeb);
+
 
   router.post("/create-acc", accountController.createAccWeb);
   router.get("/edit-add-acc", accountController.getEditAcc);
@@ -43,7 +45,7 @@ const initAdminRoute = (app)=> {
   router.post("/create-bill", billController.createBillWeb);
   router.get("/edit-add-bill", billController.getEditAddBill);
   // router.post("/update-bill", billController.updateProductWeb);
-  // router.get("/delete-bill", billController.deleteProductWeb);
+  router.get("/delete-bill", billController.deleteBillWeb);
   return app.use("/admin/", checkLogin, router);
 }
 

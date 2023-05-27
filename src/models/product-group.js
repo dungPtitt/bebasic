@@ -15,11 +15,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   ProductGroup.init({
-    idGroup: DataTypes.INTEGER,
     nameGroup: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'ProductGroup',
+    tableName: "productGroups",
+    timestamps: false
   });
   return ProductGroup;
 };

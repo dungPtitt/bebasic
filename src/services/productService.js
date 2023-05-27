@@ -153,6 +153,20 @@ let handleGetProductByGroup=(idGroup)=>{
     }
   });
 }
+let handleGetGroupProduct=(idProduct)=>{
+  return new Promise(async(resolve, reject)=>{
+    try{
+      let productGroup = await db.ProductGroup.findAll();
+      return resolve({
+        errCode: 0,
+        message: "Get product group successfully!",
+        data: productGroup
+      })
+    }catch(e){
+      reject(e);
+    }
+  });
+}
 
 //.................................
 
@@ -162,5 +176,6 @@ module.exports = {
   handleUpdateProduct,
   handleDeleteProduct,
   //
-  handleGetProductByGroup
+  handleGetProductByGroup,
+  handleGetGroupProduct
 }

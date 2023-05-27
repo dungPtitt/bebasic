@@ -18,7 +18,10 @@ let getAdminPage = async (req, res)=>{
 
 let getManageGroupProduct = async (req, res)=> {
   try{
-    return res.render("groupProduct");
+    let response = await productService.handleGetGroupProduct();
+    if(response.errCode==0){
+      return res.render("groupProduct", {data: response.data});
+    }
     // let response = await productService.handleGetProductByGroup(idGroup);
   }catch(e){
     console.log(e);

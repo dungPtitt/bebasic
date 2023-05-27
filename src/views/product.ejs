@@ -34,6 +34,7 @@
   <thead class="table-success">
     <tr>
       <th>STT</th>
+      <th>ID's name</th>
       <th>Product's name</th>
       <th>Product's price</th>
       <th>Product's count</th>
@@ -47,6 +48,7 @@
   <% for(var i=0; i < data.length; i++) { %>
     <tr>
       <td><%=i+1%></td>
+      <td><%= data[i].id %></td>
       <td><%= data[i].nameP %></td>
       <td><%= data[i].priceP %></td>
       <td><%= data[i].countP %></td>

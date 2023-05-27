@@ -11,8 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Product.belongsToMany(models.DetailBill, {foreignKey: "id", as:"DataProduct", through: "BillAndProduct"});
+      // Product.belongsToMany(models.DetailBill, {foreignKey: "id", as:"DataProduct", through: "BillAndProduct"});
       Product.belongsTo(models.ProductGroup, {foreignKey: "idGroup", as: "DataProductGroup"});
+      Product.hasMany(models.Bill, {foreignKey: "idP", as:"DataProductOfBill"});
+      // Product.belongsToMany(models.Bill, {foreignKey: "id", as:"DataProduct", through: "BillAndProduct"});
     }
   };
   Product.init({

@@ -20,6 +20,14 @@
         return;
       }
     }
+    function changeStatus(e) {
+        if (!window.confirm("San pham da duoc giao thanh cong!")) {
+          e.preventDefault();
+        } else {
+          
+          return;
+        }
+      }
   </script>
 </head>
 <body>
@@ -34,6 +42,9 @@
       <th>Name</th>
       <th>Email</th>
       <th>Date of bill</th>
+      <th>ID Product</th>
+      <th>So luong da mua</th>
+      <th>Da thanh toan chua</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -44,8 +55,16 @@
       <td><%= data[i].nameCustomer%></td>
       <td><%= data[i].email %></td>
       <td><%= data[i].dateBill %></td>
+      <td><%= data[i].idP %></td>
+      <td><%= data[i].quantityP %></td>
+      <td>
+        <input id="statusBill" value="<%=data[i].statusBill%>" type="checkbox" name="statusBill" onclick="changeStatus(event)"
+          <%=data[i].statusBill=='1' ? "checked" :  ""%>
+          <%=data[i].statusBill=='1' ? "disabled" : "" %>
+          />
+      </td>
       <td> 
-        <a href="edit-add-bill?id=<%= data[i].id %>" >Edit</a>
+        <a href="edit-add-bill?id=<%= data[i].id %>" type="button" onclick="checker(event)">Edit</a>
         <a href="delete-bill?id=<%= data[i].id %>" type="button" onclick="checker(event)">Delete</a>
       </td>
     </tr>
@@ -53,7 +72,7 @@
 </tbody>
 </table>
 <div style="text-align: center;">
-  <button class="btn btn-success"><a href="edit-add-bill?id=-1" type="button" style="text-decoration-line: none; color: white;">Add new account</a></button>
+  <button class="btn btn-success"><a href="edit-add-bill?id=-1" type="button" style="text-decoration-line: none; color: white;">Create new bill</a></button>
 </div>
 </div>
 </body>

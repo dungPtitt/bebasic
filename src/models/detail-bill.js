@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       DetailBill.belongsTo(models.Bill, {foreignKey: "idBill", as: "DataBill"});
-      DetailBill.belongsToMany(models.Product, {foreignKey: "idP", as:"DataProduct", through: "BillAndProduct"});
+      // DetailBill.belongsToMany(models.Product, {foreignKey: "idP", as:"DataProduct", through: "BillAndProduct"});
     }
   };
   DetailBill.init({

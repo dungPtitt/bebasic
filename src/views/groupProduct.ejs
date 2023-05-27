@@ -11,10 +11,12 @@
 <body>
   <div>
     <h1>Manager product follow group</h1>
-      <select name="idGroup" id="idGroup">
-        <option value="1">1</option>
-        <option value="2">2</option>
-      </select>
+      <div name="idGroup" id="idGroup">
+        <% for(var i=0; i < data.length; i++) { %>
+          <button><a href="get-product-bygroup?idGroup=<%= data[i].id %>" type="button""><%= data[i].nameGroup %></a></button>
+          <!-- <option value="<%= data[i].id %>"><%= data[i].nameGroup %></option> -->
+        <% } %>
+      </div>
   </div>
 </body>
 </html>

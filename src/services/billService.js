@@ -9,19 +9,14 @@ let handleGetBill=(idAcc)=>{
       }else{
         bill = await db.Bill.findAll({
           where: { idAcc: idAcc },
-          // include: [
-          //   {
-          //     model: db.Bill,
-          //     as: "DataAuth",
-          //     attributes: ["nameAuth"]
-          //   },
-          //   {
-          //     model: db.Bill,
-          //     as: "DataAccAndBill"
-          //   }
-          // ],
-          // raw: true,
-          // nest: true
+          include: [
+            {
+              model: db.Product,
+              as: "DataProductOfBill",
+            }
+          ],
+          raw: true,
+          nest: true
         })
       }
       return resolve({

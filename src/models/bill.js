@@ -13,6 +13,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Bill.belongsTo(models.Account, {foreignKey: "idAcc", as: "DataAccAndBill"});
       Bill.hasOne(models.DetailBill, {foreignKey: "idBill", as: "DataBill"});
+      // Bill.belongsToMany(models.Product, {foreignKey: "idP", as:"DataProduct", through: "BillAndProduct"});
+      Bill.belongsTo(models.Product, {foreignKey: "idP", as: "DataProductOfBill"});
     }
   };
   Bill.init({
