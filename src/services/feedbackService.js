@@ -25,7 +25,7 @@ let handleGetFeedback=(idProduct)=>{
 let handleCreateFeedback = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
-      if(!data.idAcc || !data.idProduct || !data.content){
+      if(!data.idAcc || !data.idProduct || !data.content || !data.star){
         return resolve({
           errCode:1,
           errMessage: "Missing input!"
@@ -35,6 +35,7 @@ let handleCreateFeedback = async (data) => {
         idAcc: data.idAcc,
         idProduct: data.idProduct,
         nameCustomer: data.nameCustomer?data.nameCustomer: "",
+        star: data.star,
         email: data.email?data.email: "",
         content: data.content
       })

@@ -3,7 +3,7 @@ module.exports = {
     return Promise.all([
       queryInterface.addColumn(
         'feedbacks',
-        'idProduct',
+        'star',
         {
           type: Sequelize.INTEGER
         }
@@ -13,7 +13,7 @@ module.exports = {
 
   down: (queryInterface, Sequelize) => {
     return Promise.all([
-      queryInterface.removeColumn('feedbacks', 'idProduct')
+      queryInterface.removeColumn('feedbacks', 'star')
     ]);
   }
 };
