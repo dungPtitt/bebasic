@@ -30,6 +30,29 @@ let handleGetBill=(idAcc)=>{
   });
 }
 
+let handleGetBillById=(idBill)=>{
+  return new Promise(async(resolve, reject)=>{
+    try{
+      let bill;
+      if(!idBill){
+        return resolve({
+        errCode: 1,
+        errMessage: "Missing input idBill!",
+      })
+      }else{
+        bill = await db.Bill.findOne({where: {id: idBill}});
+      }
+      return resolve({
+        errCode: 0,
+        message: "Get bill successfully!",
+        data: bill
+      })
+    }catch(e){
+      reject(e);
+    }
+  });
+}
+
 let handleCreateBill = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -86,6 +109,7 @@ let handleUpdateBill = (data) => {
           errMessage: "Missing input parameter"
         })
       }
+      console.log(data);
       let bill = await db.Bill.findOne({
         where: { id: data.id },
         raw: false
@@ -96,13 +120,16 @@ let handleUpdateBill = (data) => {
           errMessage: "Bill not found!"
         })
       }
-      bill.idGroup = data.idGroup;
-      bill.nameP = data.nameP;
-      bill.priceP = data.priceP;
-      bill.countP = data.countP;
-      bill.imageP = data.imageP;
-      bill.infoP = data.infoP;
-      bill.parameterP = data.parameterP;
+      bill.nameCustomer = data.nameCustomer;
+      bill.email = data.email;
+      bill.phone = data.phone;
+      bill.address = data.address;
+      bill.dateBill = data.dateBill;
+      bill.totalMoney = data.totalMoney;
+      bill.statusBill = data.statusBill;
+      bill.methodPay = data.methodPay;
+      bill.idP = data.idP;
+      bill.quantityP = data.quantityP;
       bill.save();
       // let bills = await db.Bill.findAll();
       resolve({
@@ -150,5 +177,6 @@ module.exports = {
   handleCreateBill,
   handleGetBill,
   handleUpdateBill,
-  handleDeleteBill
+  handleDeleteBill,
+  handleGetBillById
 }

@@ -28,13 +28,27 @@
           return;
         }
       }
+    function handleOnchangStatus(e, bill) {
+      // console.log(datap[i]);
+      // console.log(event.target.value);
+    }
+
+    function handleUpdateStatusOrder(e) {
+       let statusBill = document.getElementsByName("statusBill")[0].value;
+       console.log(statusBill);
+       if (window.confirm("Are you sure create new acc")) {
+        // document.getElementById("edit-add-form").submit();
+      } else {
+        e.preventDefault();
+      }
+    }
   </script>
 </head>
 <body>
 <div >
 
 
-<h1 style="text-align: center;">Table Account</h1>
+<h1 style="text-align: center;">Table Manager Bill</h1>
 <table id="customers" class="table">
   <thead class="table-success">
     <tr>
@@ -57,15 +71,18 @@
       <td><%= data[i].dateBill %></td>
       <td><%= data[i].idP %></td>
       <td><%= data[i].quantityP %></td>
+    
       <td>
-        <input id="statusBill" value="<%=data[i].statusBill%>" type="checkbox" name="statusBill" onclick="changeStatus(event)"
-          <%=data[i].statusBill=='1' ? "checked" :  ""%>
-          <%=data[i].statusBill=='1' ? "disabled" : "" %>
-          />
+        <select name="statusBill" onChange="handleOnchangStatus(event)"}>
+          <option value="0" <%= data[i].statusBill=='0'?"selected": "" %>>Huy don hang</option>
+          <option value="1" <%= data[i].statusBill=='1'?"selected": "" %>> Dang xu ly</option>
+          <option value="2" <%= data[i].statusBill=='2'?"selected": "" %>>Da giao hang</option>
+        </select>
       </td>
       <td> 
-        <a href="edit-add-bill?id=<%= data[i].id %>" type="button" onclick="checker(event)">Edit</a>
-        <a href="delete-bill?id=<%= data[i].id %>" type="button" onclick="checker(event)">Delete</a>
+        <!-- <button className="btn btn-warning" onClick="handleUpdateStatusOrder(event)">Update Status</button> -->
+        <a className="btn btn-warning" href="edit-add-bill?id=<%= data[i].id %>" type="button" onclick="checker(event)">Edit</a>
+        <!-- <a className="btn btn-warning" href="delete-bill?id=<%= data[i].id %>" type="button" onclick="checker(event)">Delete</a> -->
       </td>
     </tr>
  <% } %>

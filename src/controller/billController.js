@@ -3,7 +3,6 @@ import billService from "../services/billService";
 let createBillWeb = async(req, res)=>{
   try {
     let data = req.body;
-    console.log(data);
     let response = await billService.handleCreateBill(data);
     if(response.errCode==0){
       return res.redirect("bill");
@@ -22,7 +21,8 @@ let getEditAddBill = async(req, res)=>{
     let response = "";
     let idBill = req.query.id;
     if(idBill!=-1){
-      response = await billService.handleGetBill(idBill);
+      response = await billService.handleGetBillById(idBill);
+      console.log("before:",response.data);
       return res.render("admin/EditAndAddBill.ejs", {data: response.data, idBill: idBill});
     }else{// xu ly them moi
       let data = {
@@ -34,6 +34,24 @@ let getEditAddBill = async(req, res)=>{
       return res.render("admin/EditAndAddBill.ejs", {data: data, idBill: idBill});
     }
   }catch(e){
+    res.status(500).json({
+      errCode: -1,
+      errMessage: "Error from server!"
+    })
+  }
+}
+
+let updateBillWeb = async(req, res)=>{
+  try{
+    let data = req.body;
+    let response = await billService.handleUpdateBill(data);
+    if(response.errCode==0){
+      return res.redirect("bill");
+    }
+    return res.render("errPage", {errMessage: response.errMessage});
+
+  }catch(e){
+    console.log(e);
     res.status(500).json({
       errCode: -1,
       errMessage: "Error from server!"
@@ -119,6 +137,7 @@ let deleteBill = async (req, res) => {
 module.exports = {
   createBillWeb,
   getEditAddBill,
+  updateBillWeb,
   deleteBillWeb,
   ///-------------
   getBill,

@@ -9,37 +9,24 @@
   <script>
     function checker(e){
       let methodPay= document.getElementsByName("methodPay")[0].value;
-      let nameP = document.getElementsByName("nameP")[0].value;
-      let priceP = document.getElementsByName("priceP")[0].value;
-      let countP = document.getElementsByName("countP")[0].value;
-      let infoP = document.getElementsByName("infoP")[0].value;
-      let imageP = document.getElementsByName("imageP")[0].value;
-      let parameterP = document.getElementsByName("parameterP")[0].value;
+      let nameCustomer = document.getElementsByName("nameCustomer")[0].value;
+      let email = document.getElementsByName("email")[0].value;
+      let phone = document.getElementsByName("phone")[0].value;
+      let address = document.getElementsByName("address")[0].value;
+      let dateBill = document.getElementsByName("dateBill")[0].value;
+      let totalMoney = document.getElementsByName("totalMoney")[0].value;
+      let statusBill = document.getElementsByName("statusBill")[0].value;
+      let idP = document.getElementsByName("idP")[0].value;
+      let quantityP = document.getElementsByName("quantityP")[0].value;
       // let idGroup = document.getElementsByName("idGroup")[0].value;
-      if(nameP!="" && countP!="" && priceP!=""&& infoP!=""&& imageP!="" && parameterP!=""){
-        if(window.confirm("Are you sure create new acc")){
+      if(nameCustomer !="" && email !="" && phone !=""&& address !=""&& dateBill !="" && totalMoney !="" && statusBill != "" && idP != "" && quantityP != ""){
+        if(window.confirm("Are you sure create or update bill")){
         document.getElementById("edit-add-form").submit();
         } else {
           e.preventDefault();
         }
       }
       
-    }
-    let handleOnchangeImage = async (e) => {
-        let file = e.target.files[0];
-        const objectUrl = URL.createObjectURL(file)
-        // let base64 = await CommonUtils.getBase64(file);
-        console.log(objectUrl)
-        if (file) {
-            const objectUrl = URL.createObjectURL(file)
-            // let base64 = await CommonUtils.getBase64(file);
-            console.log(objectUrl)
-            // this.setState({
-            //     previewImageUrl: objectUrl,
-            //     image: base64
-            // })
-        }
-
     }
   </script>
 </head>
@@ -55,7 +42,7 @@
       <% if (idBill != -1) { %>
         <p> Edit Bill</p>
         <%} else { %>
-          <p> Add Bill</p>
+          <p> Create Bill</p>
         <% } %>
       <!-- <h1>Edit Bill</h1> -->
       <div class="form-row">
@@ -103,9 +90,10 @@
         </div>
         <div class="form-group col-md-6">
           <label for="inputPassword4">statusBill</label>
-          <select class="form-select" name="statusBill">
-            <option value="0">Chua thanh toan</option>
-            <option value="1">Da thanh toan</option>
+          <select name="statusBill" class="form-select">
+            <option value="0" selected="<%= data.statusBill=='0'?true: false %>">Huy don hang</option>
+            <option value="1" selected="<%= data.statusBill=='1'?true: false %>"> Dang xu ly</option>
+            <option value="2" selected="<%= data.statusBill=='2'?true: false %>">Da giao hang</option>
           </select>
         </div>
         <div class="form-group col-md-6">

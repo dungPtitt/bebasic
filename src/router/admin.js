@@ -44,7 +44,7 @@ const initAdminRoute = (app)=> {
 
   router.post("/create-bill", billController.createBillWeb);
   router.get("/edit-add-bill", billController.getEditAddBill);
-  // router.post("/update-bill", billController.updateProductWeb);
+  router.post("/update-bill", billController.updateBillWeb);
   router.get("/delete-bill", billController.deleteBillWeb);
   return app.use("/admin/", checkLogin, router);
 }
