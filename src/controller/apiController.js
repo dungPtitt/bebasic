@@ -83,6 +83,27 @@ let registerMember = async(req, res)=>{
     })
   }
 }
+
+let changePassword = async(req, res)=>{
+  try{
+    let data = req.body;
+    let response = await accountService.handleChangePassword(data);
+    if(response.errCode==0){
+      return res.status(200).json({
+        errCode: 0,
+        message: "change password successfully!"
+      });
+    }
+    return res.status(200).json(response);
+    
+  }catch(e){
+    console.log(e);
+    return res.status(500).json({
+      errCode: -1,
+      errMessage: "Err from server!"
+    })
+  }
+}
 module.exports = {
   getUsers,
   createUser,
@@ -91,4 +112,5 @@ module.exports = {
 
   checkLogin,
   registerMember,
+  changePassword
 }

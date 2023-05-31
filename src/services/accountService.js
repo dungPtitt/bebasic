@@ -53,6 +53,56 @@ let handleUserLogin = async(email, password) => {
   })
 }
 
+let handleChangePassword = async(data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let idAcc = data.idAcc;
+      let oldPassword = data.oldPassword;
+      let newPassword = data.newPassword;
+      if(!idAcc){
+        resolve({
+          errCode: 5,
+          errMessage: "Missing input idAcc!"
+        })
+      }
+      if(!oldPassword || !newPassword){
+        resolve({
+          errCode: 6,
+          errMessage: "Missing password"
+        })
+      }
+      let acc = await db.Account.findOne(
+          {where: {id: idAcc}, raw: false}
+        );
+      // neu ton tai email thi check password
+      
+      if(!acc){
+        resolve({
+          errCode: 1,
+          errMessage: "Account is not exit. Please try again!"
+        })
+      }
+      let check = await bcrypt.compare(oldPassword, acc.passwordAcc);
+      if(!check){
+        resolve({
+          errCode: 2,
+          errMessage: "Wrong password. Please try again!"
+        })
+      }
+      let hashPasswordFromBcrypt = await hashUserPassword(newPassword);
+      acc.passwordAcc = hashPasswordFromBcrypt;
+      await acc.save();
+      return resolve({
+        errCode: 0,
+        message: "change password success",
+        data: acc
+      });
+    } catch (e) {
+      reject(e);
+    }
+  })
+}
+
 let handleAuthorityLogin = (email, password) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -237,7 +287,7 @@ let handleUpdateAcc = (data) => {
       acc.emailAcc = data.emailAcc? data.emailAcc: acc.emailAcc;
       //co the cho cap nhat mat khau lun hoac chia thanh th khac
       acc.password = data.passwordAcc==""? data.passwordAcc: acc.passwordAcc;
-      acc.save();
+      await acc.save();
       // let accounts = await db.Account.findAll();
       resolve({
         errCode: 0,
@@ -281,6 +331,7 @@ let handleDeleteAcc= async(idAcc)=>{
 }
 module.exports = {
   handleUserLogin,
+  handleChangePassword,
   handleGetAcc,
   handleCreateAcc,
   handleUpdateAcc,
