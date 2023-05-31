@@ -14,7 +14,7 @@
   <script>
     
     function checker(e){
-      if(!window.confirm("Are you sure delete account!")){
+      if(!window.confirm("Are you sure update update!")){
         e.preventDefault();
       } else {
         return;
@@ -73,7 +73,7 @@
       <td><%= data[i].quantityP %></td>
     
       <td>
-        <select name="statusBill" onChange="handleOnchangStatus(event)"}>
+        <select name="statusBill" disabled onChange="handleOnchangStatus(event)"}>
           <option value="0" <%= data[i].statusBill=='0'?"selected": "" %>>Huy don hang</option>
           <option value="1" <%= data[i].statusBill=='1'?"selected": "" %>> Dang xu ly</option>
           <option value="2" <%= data[i].statusBill=='2'?"selected": "" %>>Da giao hang</option>

@@ -1,6 +1,7 @@
 import db from "../models/index";
 import bcrypt from 'bcryptjs';
 let salt = bcrypt.genSaltSync(10);
+import emailService from "./emailService";
 
 let handleUserLogin = async(email, password) => {
   return new Promise(async (resolve, reject) => {
@@ -95,6 +96,52 @@ let handleChangePassword = async(data) => {
       return resolve({
         errCode: 0,
         message: "change password success",
+        data: acc
+      });
+    } catch (e) {
+      reject(e);
+    }
+  })
+}
+
+let handleForgotPassword = async(data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let nameAcc = data.nameAcc;
+      let emailAcc = data.emailAcc;
+      if(!nameAcc){
+        resolve({
+          errCode: 5,
+          errMessage: "Missing input name!"
+        })
+      }
+      if(!emailAcc){
+        resolve({
+          errCode: 6,
+          errMessage: "Missing email"
+        })
+      }
+      let acc = await db.Account.findOne(
+          {where: {emailAcc: emailAcc, nameAcc: nameAcc}, raw: false}
+        );
+      // neu ton tai email thi check password
+      
+      if(!acc){
+        resolve({
+          errCode: 1,
+          errMessage: "Account is not exit. Please try again!"
+        })
+      }
+      let password = Math.random().toString().substr(2, 6);
+      console.log(password);
+      data.password = password;
+      await emailService.sendForgotPassword(data);
+      let hashPasswordFromBcrypt = await hashUserPassword(password);
+      acc.passwordAcc = hashPasswordFromBcrypt;
+      await acc.save();
+      return resolve({
+        errCode: 0,
+        message: "get password success",
         data: acc
       });
     } catch (e) {
@@ -332,6 +379,8 @@ let handleDeleteAcc= async(idAcc)=>{
 module.exports = {
   handleUserLogin,
   handleChangePassword,
+  handleForgotPassword,
+
   handleGetAcc,
   handleCreateAcc,
   handleUpdateAcc,

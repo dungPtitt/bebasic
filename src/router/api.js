@@ -22,6 +22,7 @@ const initAPIRoute = (app)=> {
   router.post("/login", apiController.checkLogin);
   router.post("/register-member", apiController.registerMember);
   router.post("/change-password", apiController.changePassword);
+  router.post("/forgot-password", apiController.forgotPassword);
 
   router.post("/create-bill", billController.createBill);
   router.get("/get-bill", billController.getBill);

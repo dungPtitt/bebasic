@@ -1,4 +1,5 @@
 import db from "../models/index";
+import emailService from "./emailService";
 
 let handleGetBill=(idAcc)=>{
   return new Promise(async(resolve, reject)=>{
@@ -109,7 +110,6 @@ let handleUpdateBill = (data) => {
           errMessage: "Missing input parameter"
         })
       }
-      console.log(data);
       let bill = await db.Bill.findOne({
         where: { id: data.id },
         raw: false
@@ -120,6 +120,10 @@ let handleUpdateBill = (data) => {
           errMessage: "Bill not found!"
         })
       }
+      if(data.statusBill==2){
+        await emailService.sendSempleEmail(data);
+      }
+
       bill.nameCustomer = data.nameCustomer;
       bill.email = data.email;
       bill.phone = data.phone;
